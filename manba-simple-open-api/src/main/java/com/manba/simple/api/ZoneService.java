@@ -1,10 +1,7 @@
 package com.manba.simple.api;
 
 import com.manba.simple.domain.request.ZoneRequest;
-import com.manba.simple.domain.response.CommentInfo;
-import com.manba.simple.domain.response.PageBean;
-import com.manba.simple.domain.response.ServiceResponse;
-import com.manba.simple.domain.response.ZoneResponse;
+import com.manba.simple.domain.response.*;
 
 import java.util.List;
 
@@ -38,7 +35,7 @@ public interface ZoneService {
      * 关注列表
      * @return
      */
-    ServiceResponse<Boolean> followList();
+    ServiceResponse<UserInfoResponse> followList();
 
     /**
      * 点赞某条动态
@@ -50,19 +47,19 @@ public interface ZoneService {
      * 点赞列表
      * @return
      */
-    ServiceResponse<Boolean> upvoteList();
+    ServiceResponse<UserInfoResponse> upvoteList();
 
     /**
      * 评论动态
      * @return
      */
-    ServiceResponse<Boolean> comment();
+    ServiceResponse<Long> comment();
 
     /**
      * 回复评论
      * @return
      */
-    ServiceResponse<Boolean> applyComment();
+    ServiceResponse<Long> applyComment();
 
     /**
      * 查询评论列表
