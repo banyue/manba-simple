@@ -4,7 +4,6 @@ import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.request.UserRegisterRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
-import com.sun.deploy.services.Service;
 
 /**
  * 用户相关对外服务接口

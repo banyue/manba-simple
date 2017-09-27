@@ -6,6 +6,8 @@ import com.manba.simple.domain.response.PageBean;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.ZoneResponse;
 
+import java.util.List;
+
 /**
  * 动态对外服务接口
  * Created by lijin on 2017/9/26.
@@ -31,6 +33,12 @@ public interface ZoneService {
      * @return
      */
     ServiceResponse<Boolean> follow();
+
+    /**
+     * 关注列表
+     * @return
+     */
+    ServiceResponse<Boolean> followList();
 
     /**
      * 点赞某条动态
@@ -61,4 +69,22 @@ public interface ZoneService {
      * @return
      */
     ServiceResponse<PageBean<CommentInfo>> queryCommentList();
+
+    /**
+     * 相册列表
+     * @return
+     */
+    ServiceResponse<List<String>> photoList();
+
+    /**
+     * 获取点赞数
+     * @return
+     */
+    ServiceResponse<Integer> getUpvoteNum();
+
+    /**
+     * 获取关注数
+     * @return
+     */
+    ServiceResponse<Integer> getFollowNum();
 }
