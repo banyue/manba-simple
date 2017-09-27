@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
+<mapper namespace="man_simple_userMapper">
+	<resultMap id="manSimpleUserMap" type="com.manba.simple.domain.entity.ManSimpleUserEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR" javaType="String"/>
+		<result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" javaType="String"/>
+		<result column="sex" property="sex" jdbcType="INTEGER" javaType="Integer"/>
+		<result column="interesting" property="interesting" jdbcType="VARCHAR" javaType="String"/>
+		<result column="photo_url" property="photoUrl" jdbcType="VARCHAR" javaType="String"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id AS id,
+			phone AS phone,
+			password AS password,
+			nick_name AS nickName,
+			sex AS sex,
+			interesting AS interesting,
+			photo_url AS photoUrl,
+			create_time AS createTime,
+			update_time AS updateTime
+		FROM man_simple_user
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1 
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="phone != null and phone != ''">
+			and phone = #{phone,jdbcType=VARCHAR}
+		</if>
+		<if test="password != null and password != ''">
+			and password = #{password,jdbcType=VARCHAR}
+		</if>
+		<if test="nickName != null and nickName != ''">
+			and nick_name = #{nickName,jdbcType=VARCHAR}
+		</if>
+		<if test="sex != null">
+			and sex = #{sex,jdbcType=INTEGER}
+		</if>
+		<if test="interesting != null and interesting != ''">
+			and interesting = #{interesting,jdbcType=VARCHAR}
+		</if>
+		<if test="photoUrl != null and photoUrl != ''">
+			and photo_url = #{photoUrl,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectManSimpleUser" parameterType="com.manba.simple.domain.entity.ManSimpleUserEntity" resultMap="manSimpleUserMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneManSimpleUser" parameterType="java.lang.Long" resultMap="manSimpleUserMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countManSimpleUser" parameterType="com.manba.simple.domain.entity.ManSimpleUserEntity" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM man_simple_user
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertManSimpleUser" parameterType="com.manba.simple.domain.entity.ManSimpleUserEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO man_simple_user (
+	<if test="phone != null">
+		phone,
+	</if>
+	<if test="password != null">
+		password,
+	</if>
+	<if test="nickName != null">
+		nick_name,
+	</if>
+	<if test="sex != null">
+		sex,
+	</if>
+	<if test="interesting != null">
+		interesting,
+	</if>
+	<if test="photoUrl != null">
+		photo_url,
+	</if>
+		create_time,
+		update_time,
+		ts
+	) VALUES (
+    <if test="phone != null">
+    	#{phone,jdbcType=VARCHAR},
+    </if>
+    <if test="password != null">
+    	#{password,jdbcType=VARCHAR},
+    </if>
+    <if test="nickName != null">
+    	#{nickName,jdbcType=VARCHAR},
+    </if>
+    <if test="sex != null">
+    	#{sex,jdbcType=INTEGER},
+    </if>
+    <if test="interesting != null">
+    	#{interesting,jdbcType=VARCHAR},
+    </if>
+    <if test="photoUrl != null">
+    	#{photoUrl,jdbcType=VARCHAR},
+    </if>
+		now(),
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertManSimpleUserBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO man_simple_user (
+		phone,
+		password,
+		nick_name,
+		sex,
+		interesting,
+		photo_url,
+		create_time,
+		update_time,
+		ts
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.phone,jdbcType=VARCHAR},
+		#{item.password,jdbcType=VARCHAR},
+		#{item.nickName,jdbcType=VARCHAR},
+		#{item.sex,jdbcType=INTEGER},
+		#{item.interesting,jdbcType=VARCHAR},
+		#{item.photoUrl,jdbcType=VARCHAR},
+		now(),
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateManSimpleUser" parameterType="java.util.Map">
+		UPDATE man_simple_user
+		<set>
+    	<if test="phone != null">
+            phone = #{phone,jdbcType=VARCHAR},
+    	</if>
+    	<if test="password != null">
+            password = #{password,jdbcType=VARCHAR},
+    	</if>
+    	<if test="nickName != null">
+            nick_name = #{nickName,jdbcType=VARCHAR},
+    	</if>
+    	<if test="sex != null">
+            sex = #{sex,jdbcType=INTEGER},
+    	</if>
+    	<if test="interesting != null">
+            interesting = #{interesting,jdbcType=VARCHAR},
+    	</if>
+    	<if test="photoUrl != null">
+            photo_url = #{photoUrl,jdbcType=VARCHAR},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+        sys_version = sys_version + 1,
+        update_time =now(),
+        ts=now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateManSimpleUserBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update man_simple_user 
+		<set>
+		<if test="item.phone != null">
+			phone = #{item.phone,jdbcType=VARCHAR},
+		</if>
+		<if test="item.password != null">
+			password = #{item.password,jdbcType=VARCHAR},
+		</if>
+		<if test="item.nickName != null">
+			nick_name = #{item.nickName,jdbcType=VARCHAR},
+		</if>
+		<if test="item.sex != null">
+			sex = #{item.sex,jdbcType=INTEGER},
+		</if>
+		<if test="item.interesting != null">
+			interesting = #{item.interesting,jdbcType=VARCHAR},
+		</if>
+		<if test="item.photoUrl != null">
+			photo_url = #{item.photoUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		sys_version = sys_version + 1,
+		update_time =now(),
+		ts=now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteManSimpleUser" parameterType="com.manba.simple.domain.entity.ManSimpleUserEntity">
+		DELETE FROM man_simple_user
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneManSimpleUser" parameterType="java.lang.Long">
+		DELETE FROM man_simple_user
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

@@ -11,5 +11,7 @@
 
     <artifactId>manba-simple-domain</artifactId>
 
+    <dependencies>
 
+    </dependencies>
 </project>

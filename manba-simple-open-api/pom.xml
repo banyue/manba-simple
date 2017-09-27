@@ -11,5 +11,11 @@
 
     <artifactId>manba-simple-open-api</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.manba.simple</groupId>
+            <artifactId>manba-simple-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

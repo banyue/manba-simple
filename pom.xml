@@ -54,6 +54,8 @@
         <commons-lang.version>2.6</commons-lang.version>
         <guava.version>14.0.1</guava.version>
         <junit.version>4.12</junit.version>
+        <o2o.road.common.version>1.0.1-SNAPSHOT</o2o.road.common.version>
+        <o2o-commons.version>1.1-SNAPSHOT</o2o-commons.version>
     </properties>
 
     <dependencyManagement>

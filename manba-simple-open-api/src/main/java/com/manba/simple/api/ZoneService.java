@@ -1,5 +1,6 @@
 package com.manba.simple.api;
 
+import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.ZoneRequest;
 import com.manba.simple.domain.response.*;
 
