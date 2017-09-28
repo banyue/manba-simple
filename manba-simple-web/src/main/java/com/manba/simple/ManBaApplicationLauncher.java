@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 漫吧对外网关启动服务器
@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @MapperScan("com.manba.simple.mapper")
 public class ManBaApplicationLauncher {
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ManBaApplicationLauncher.class);
 
     //DataSource配置
     @Bean
@@ -45,5 +47,6 @@ public class ManBaApplicationLauncher {
 
     public static void main(String args[]) {
         SpringApplication.run(ManBaApplicationLauncher.class, args);
+        LOGGER.info("服务启动成功！！！！！！！！！！！！！！！");
     }
 }

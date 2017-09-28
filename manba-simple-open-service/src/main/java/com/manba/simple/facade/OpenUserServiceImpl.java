@@ -1,5 +1,6 @@
 package com.manba.simple.facade;
 
+import com.alibaba.fastjson.JSON;
 import com.manba.simple.api.OpenUserService;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.request.UserLoginRequest;
@@ -7,6 +8,8 @@ import com.manba.simple.domain.request.UserRegisterRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,6 +20,8 @@ import javax.annotation.Resource;
  */
 @Service
 public class OpenUserServiceImpl implements OpenUserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenUserServiceImpl.class);
 
     @Resource
     UserService userService;
@@ -38,16 +43,22 @@ public class OpenUserServiceImpl implements OpenUserService {
     }
 
     public ServiceResponse<UserInfoResponse> queryUserInfo(UserLoginRequest request) {
+        LOGGER.info("查询用户信息入参：{}", JSON.toJSONString(request));
         ServiceResponse<UserInfoResponse> response = new ServiceResponse<UserInfoResponse>();
-        ManSimpleUserEntity entity = new ManSimpleUserEntity();
-        entity.setId(Long.valueOf(request.getUserId()));
-        ManSimpleUserEntity result = userService.getOneUserInfo(entity);
-        UserInfoResponse userInfoResponse = new UserInfoResponse();
-        userInfoResponse.setNickName(result.getNickName());
-        userInfoResponse.setPhone(result.getPhone());
-        userInfoResponse.setPhotoUrl(result.getPhotoUrl());
-        userInfoResponse.setUserId(result.getId());
-        response.setResult(userInfoResponse);
+        try {
+            ManSimpleUserEntity entity = new ManSimpleUserEntity();
+            entity.setId(Long.valueOf(request.getUserId()));
+            ManSimpleUserEntity result = userService.getOneUserInfo(entity);
+            UserInfoResponse userInfoResponse = new UserInfoResponse();
+            userInfoResponse.setNickName(result.getNickName());
+            userInfoResponse.setPhone(result.getPhone());
+            userInfoResponse.setPhotoUrl(result.getPhotoUrl());
+            userInfoResponse.setUserId(result.getId());
+            response.setResult(userInfoResponse);
+        } catch (Exception e) {
+
+        }
+        LOGGER.info("查询用户信息出参：{}", JSON.toJSONString(response));
         return response;
     }
 }
