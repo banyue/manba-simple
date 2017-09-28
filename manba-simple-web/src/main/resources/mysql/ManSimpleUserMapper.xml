@@ -16,15 +16,15 @@
     
     <sql id="select-all-column">
 		SELECT
-			id AS id,
-			phone AS phone,
-			password AS password,
-			nick_name AS nickName,
-			sex AS sex,
-			interesting AS interesting,
-			photo_url AS photoUrl,
-			create_time AS createTime,
-			update_time AS updateTime
+			id,
+			phone,
+			password,
+			nick_name,
+			sex,
+			interesting,
+			photo_url,
+			create_time,
+			update_time
 		FROM man_simple_user
 	</sql>
 	
