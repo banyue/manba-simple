@@ -35,4 +35,6 @@ public class UserController {
         ServiceResponse<UserInfoResponse> response = userService.queryUserInfo(request);
         return response;
     }
+
+
 }
