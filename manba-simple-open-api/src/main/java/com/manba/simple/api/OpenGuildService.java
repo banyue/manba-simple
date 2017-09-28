@@ -10,7 +10,7 @@ import java.util.List;
  * 公会对外服务接口
  * Created by lijin on 2017/9/26.
  */
-public interface GuildService {
+public interface OpenGuildService {
 
     /**
      * 查询公会列表

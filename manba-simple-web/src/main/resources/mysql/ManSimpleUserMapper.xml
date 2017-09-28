@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- recommended not modified but can be added ,Please contact liuhuiqing@jd.com for good advice.-->
-<mapper namespace="man_simple_userMapper">
+<mapper namespace="com.manba.simple.mapper.ManSimpleUserMapper">
 	<resultMap id="manSimpleUserMap" type="com.manba.simple.domain.entity.ManSimpleUserEntity">
 		<result column="id" property="id" jdbcType="BIGINT" javaType="Long"/>
 		<result column="phone" property="phone" jdbcType="VARCHAR" javaType="String"/>
@@ -63,8 +63,6 @@
 		<include refid="select-all-column"/>
 		<where>
 		<include refid="where-all-condition"/>
-		<include refid="commonRoadMapper.sortSql"/>
-		<include refid="commonRoadMapper.pagingLimit"/>
 		</where>
 	</select>
 	
@@ -102,8 +100,7 @@
 		photo_url,
 	</if>
 		create_time,
-		update_time,
-		ts
+		update_time
 	) VALUES (
     <if test="phone != null">
     	#{phone,jdbcType=VARCHAR},
@@ -124,7 +121,6 @@
     	#{photoUrl,jdbcType=VARCHAR},
     </if>
 		now(),
-		now(),
 		now()
 	)
 	</insert>
@@ -142,8 +138,7 @@
 		interesting,
 		photo_url,
 		create_time,
-		update_time,
-		ts
+		update_time
 	) VALUES
 	<foreach collection="list" item="item" index="index" separator=",">
     (
@@ -153,7 +148,6 @@
 		#{item.sex,jdbcType=INTEGER},
 		#{item.interesting,jdbcType=VARCHAR},
 		#{item.photoUrl,jdbcType=VARCHAR},
-		now(),
 		now(),
 		now()
 			)
@@ -184,9 +178,7 @@
     	<if test="createTime != null">
             create_time = #{createTime,jdbcType=TIMESTAMP},
     	</if>
-        sys_version = sys_version + 1,
-        update_time =now(),
-        ts=now()
+        update_time =now()
 		</set>
 		WHERE 
 		id = #{id,jdbcType=BIGINT}
@@ -218,8 +210,7 @@
 			create_time = #{item.createTime,jdbcType=TIMESTAMP},
 		</if>
 		sys_version = sys_version + 1,
-		update_time =now(),
-		ts=now()
+		update_time =now()
 		</set>
 		WHERE 
 		id = #{item.id,jdbcType=BIGINT}

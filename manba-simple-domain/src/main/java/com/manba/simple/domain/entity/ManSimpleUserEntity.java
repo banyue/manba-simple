@@ -1,6 +1,8 @@
 package com.manba.simple.domain.entity;
 
-public class ManSimpleUserEntity {
+import java.io.Serializable;
+
+public class ManSimpleUserEntity implements Serializable {
 	private Long id;
 	private String phone;
 	private String password;

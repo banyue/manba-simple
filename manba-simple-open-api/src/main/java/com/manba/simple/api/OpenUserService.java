@@ -9,7 +9,7 @@ import com.manba.simple.domain.response.UserInfoResponse;
  * 用户相关对外服务接口
  * Created by lijin on 2017/9/26.
  */
-public interface UserService {
+public interface OpenUserService {
 
     /**
      * 用户登录

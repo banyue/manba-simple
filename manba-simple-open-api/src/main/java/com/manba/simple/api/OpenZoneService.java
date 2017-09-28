@@ -10,7 +10,7 @@ import java.util.List;
  * 动态对外服务接口
  * Created by lijin on 2017/9/26.
  */
-public interface ZoneService {
+public interface OpenZoneService {
 
     /**
      * 分页查询动态列表
