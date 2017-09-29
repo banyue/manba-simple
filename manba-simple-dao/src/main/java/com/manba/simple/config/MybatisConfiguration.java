@@ -22,7 +22,7 @@ public class MybatisConfiguration {
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource() {
-        return new org.apache.tomcat.jdbc.pool.DataSource();
+        return new DataSource();
     }
 
     //提供SqlSeesion

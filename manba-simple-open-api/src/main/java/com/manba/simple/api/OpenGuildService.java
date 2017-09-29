@@ -1,5 +1,6 @@
 package com.manba.simple.api;
 
+import com.manba.simple.domain.request.CreateGuildRequest;
 import com.manba.simple.domain.request.GuildRequest;
 import com.manba.simple.domain.response.GuildResponse;
 import com.manba.simple.domain.response.ServiceResponse;
@@ -18,6 +19,13 @@ public interface OpenGuildService {
      * @return
      */
     ServiceResponse<List<GuildResponse>> queryGuildList(GuildRequest request);
+
+    /**
+     * 创建公会
+     * @param request
+     * @return
+     */
+    ServiceResponse<Boolean> createGuild(CreateGuildRequest request);
 
     /**
      * 查询公会详情

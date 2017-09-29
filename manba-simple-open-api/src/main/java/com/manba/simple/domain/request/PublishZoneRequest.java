@@ -1,27 +1,17 @@
-package com.manba.simple.domain.response;
+package com.manba.simple.domain.request;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
- * 动态详情返回结果
- * Created by lijin on 2017/9/26.
+ * 发布动态请求
+ * Created by lijin on 2017/9/29.
  */
-public class ZoneResponse {
+public class PublishZoneRequest implements Serializable {
 
-    private Long id;
     private String zoneTitle;
     private Long userId;
     private String zoneContent;
     private String zoneImage;
-    private Date publishTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getZoneTitle() {
         return zoneTitle;
@@ -53,13 +43,5 @@ public class ZoneResponse {
 
     public void setZoneImage(String zoneImage) {
         this.zoneImage = zoneImage;
-    }
-
-    public Date getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
     }
 }

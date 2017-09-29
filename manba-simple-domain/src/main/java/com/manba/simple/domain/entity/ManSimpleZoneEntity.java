@@ -16,6 +16,10 @@ public class ManSimpleZoneEntity implements Serializable {
 
     private Date publishTime;
 
+    private Integer yn;
+
+    private Date updateTime;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -64,5 +68,21 @@ public class ManSimpleZoneEntity implements Serializable {
 
     public void setPublishTime(Date publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public Integer getYn() {
+        return yn;
+    }
+
+    public void setYn(Integer yn) {
+        this.yn = yn;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

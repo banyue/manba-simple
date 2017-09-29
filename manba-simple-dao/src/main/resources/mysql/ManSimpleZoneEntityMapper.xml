@@ -8,12 +8,14 @@
     <result column="zone_content" property="zoneContent" jdbcType="VARCHAR" />
     <result column="zone_image" property="zoneImage" jdbcType="VARCHAR" />
     <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="yn" property="yn" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, zone_title, user_id, zone_content, zone_image, publish_time
+    id, zone_title, user_id, zone_content, zone_image, publish_time, yn, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from man_simple_zone
     where id = #{id,jdbcType=BIGINT}
@@ -23,19 +25,22 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
-    insert into man_simple_zone (id, zone_title, user_id, 
-      zone_content, zone_image, publish_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{zoneTitle,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{zoneContent,jdbcType=VARCHAR}, #{zoneImage,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}
-      )
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into man_simple_zone (zone_title, user_id, zone_content,
+    zone_image, publish_time, yn,
+    update_time)
+    values (#{zoneTitle,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{zoneContent,jdbcType=VARCHAR},
+    #{zoneImage,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{yn,jdbcType=INTEGER},
+    #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into man_simple_zone
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="zoneTitle != null" >
         zone_title,
       </if>
@@ -51,11 +56,14 @@
       <if test="publishTime != null" >
         publish_time,
       </if>
+      <if test="yn != null" >
+        yn,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="zoneTitle != null" >
         #{zoneTitle,jdbcType=VARCHAR},
       </if>
@@ -70,6 +78,12 @@
       </if>
       <if test="publishTime != null" >
         #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yn != null" >
+        #{yn,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -91,6 +105,12 @@
       <if test="publishTime != null" >
         publish_time = #{publishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="yn != null" >
+        yn = #{yn,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -100,7 +120,9 @@
       user_id = #{userId,jdbcType=BIGINT},
       zone_content = #{zoneContent,jdbcType=VARCHAR},
       zone_image = #{zoneImage,jdbcType=VARCHAR},
-      publish_time = #{publishTime,jdbcType=TIMESTAMP}
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      yn = #{yn,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

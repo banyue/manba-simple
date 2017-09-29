@@ -61,19 +61,25 @@
         <table tableName="man_simple_user" domainObjectName="ManSimpleUserEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="man_simple_zone" domainObjectName="ManSimpleZoneEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="man_simple_guild" domainObjectName="ManSimpleGuildEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <!-- <table tableName="app_bind_status" domainObjectName="AppBindStatus"
             enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
             enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
 
     </context>
 </generatorConfiguration>
-        <!-- mybatis-generator:generate 执行命令-->
+<!-- mybatis-generator:generate 执行命令-->

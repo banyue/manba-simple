@@ -1,6 +1,8 @@
 package com.manba.simple.api;
 
+import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.domain.page.PageBean;
+import com.manba.simple.domain.request.PublishZoneRequest;
 import com.manba.simple.domain.request.ZoneRequest;
 import com.manba.simple.domain.response.*;
 
@@ -20,11 +22,20 @@ public interface OpenZoneService {
     ServiceResponse<PageBean<ZoneResponse>> queryZoneList(ZoneRequest request);
 
     /**
+     * 发布动态
+     * @param request
+     * @return
+     */
+    ServiceResponse<Integer> publishZone(PublishZoneRequest request);
+
+    /**
      * 查询动态详情
      * @param request
      * @return
      */
     ServiceResponse<ZoneResponse> queryZoneDetail(ZoneRequest request);
+
+    ServiceResponse<Integer> deleteZone(ZoneRequest request);
 
     /**
      * 关注某人

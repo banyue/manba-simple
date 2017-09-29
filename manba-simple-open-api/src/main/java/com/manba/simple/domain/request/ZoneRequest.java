@@ -6,6 +6,8 @@ package com.manba.simple.domain.request;
  */
 public class ZoneRequest {
 
+    private String id;  //动态id
+
     private Integer pageSize;
     private Integer pageNo;
 
@@ -23,5 +25,13 @@ public class ZoneRequest {
 
     public void setPageNo(Integer pageNo) {
         this.pageNo = pageNo;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

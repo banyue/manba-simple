@@ -1,6 +1,7 @@
 package com.manba.simple.facade;
 
 import com.manba.simple.api.OpenGuildService;
+import com.manba.simple.domain.request.CreateGuildRequest;
 import com.manba.simple.domain.request.GuildRequest;
 import com.manba.simple.domain.response.GuildResponse;
 import com.manba.simple.domain.response.ServiceResponse;
@@ -15,6 +16,10 @@ import java.util.List;
 public class OpenGuildServiceImpl implements OpenGuildService {
 
     public ServiceResponse<List<GuildResponse>> queryGuildList(GuildRequest request) {
+        return null;
+    }
+
+    public ServiceResponse<Boolean> createGuild(CreateGuildRequest request) {
         return null;
     }
 

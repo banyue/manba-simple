@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.manba.simple.api.OpenZoneService;
+import com.manba.simple.domain.constant.YnEnum;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.domain.page.PageBean;
+import com.manba.simple.domain.request.PublishZoneRequest;
 import com.manba.simple.domain.request.ZoneRequest;
 import com.manba.simple.domain.response.CommentInfo;
 import com.manba.simple.domain.response.ServiceResponse;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,8 +55,45 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         return response;
     }
 
+    public ServiceResponse<Integer> publishZone(PublishZoneRequest request) {
+        LOGGER.info("发布动态详情入参：{}", JSON.toJSONString(request));
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
+        ManSimpleZoneEntity entity = new ManSimpleZoneEntity();
+        entity.setZoneContent(request.getZoneContent());
+        entity.setZoneTitle(request.getZoneTitle());
+        entity.setZoneImage(request.getZoneImage());
+        entity.setUserId(request.getUserId());
+        entity.setPublishTime(new Date());
+        entity.setYn(YnEnum.YES.getCode());
+        Long id = zoneService.createZone(entity);
+        response.setResult(id.intValue());
+        LOGGER.info("发布动态详情出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
     public ServiceResponse<ZoneResponse> queryZoneDetail(ZoneRequest request) {
-        return null;
+        LOGGER.info("查询动态详情入参：{}", JSON.toJSONString(request));
+        ServiceResponse<ZoneResponse> response = new ServiceResponse<ZoneResponse>();
+        ManSimpleZoneEntity entity = zoneService.selectOneZone(Long.valueOf(request.getId()));
+        ZoneResponse zone = new ZoneResponse();
+        zone.setId(entity.getId());
+        zone.setPublishTime(entity.getPublishTime());
+        zone.setUserId(entity.getUserId());
+        zone.setZoneContent(entity.getZoneContent());
+        zone.setZoneImage(entity.getZoneImage());
+        zone.setZoneTitle(entity.getZoneTitle());
+        response.setResult(zone);
+        LOGGER.info("查询动态详情出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    public ServiceResponse<Integer> deleteZone(ZoneRequest request) {
+        LOGGER.info("删除动态详情入参：{}", JSON.toJSONString(request));
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
+        Integer id = zoneService.deleteZone(Long.valueOf(request.getId()));
+        response.setResult(id);
+        LOGGER.info("删除动态详情出参：{}", JSON.toJSONString(response));
+        return response;
     }
 
     public ServiceResponse<Boolean> follow() {

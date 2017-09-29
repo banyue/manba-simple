@@ -16,4 +16,25 @@ public interface ZoneService {
      * @return
      */
     List<ManSimpleZoneEntity> selectZoneList(ZoneEntityRequest request);
+
+    /**
+     * 根据动态ID获取动态
+     * @param id
+     * @return
+     */
+    ManSimpleZoneEntity selectOneZone(Long id);
+
+    /**
+     * 创建动态
+     * @param request
+     * @return
+     */
+    Long createZone(ManSimpleZoneEntity request);
+
+    /**
+     * 删除动态（注意：逻辑删除）
+     * @param id
+     * @return
+     */
+    Integer deleteZone(Long id);
 }
