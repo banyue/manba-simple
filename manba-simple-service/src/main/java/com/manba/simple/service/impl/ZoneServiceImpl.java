@@ -31,6 +31,7 @@ public class ZoneServiceImpl implements ZoneService {
 
     public Long createZone(ManSimpleZoneEntity request) {
         manSimpleZoneEntityMapper.insertSelective(request);
+        //返回主键
         return request.getId();
     }
 

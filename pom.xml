@@ -17,6 +17,7 @@
         <module>manba-simple-inner-api</module>
         <module>manba-simple-inner-service</module>
         <module>manba-simple-web</module>
+        <module>manba-simple-inner-web</module>
     </modules>
 
     <properties>
