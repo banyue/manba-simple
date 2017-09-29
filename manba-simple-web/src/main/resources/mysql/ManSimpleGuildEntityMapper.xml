@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manba.simple.mapper.ManSimpleGuildEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.manba.simple.domain.entity.ManSimpleGuildEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="guild_name" property="guildName" jdbcType="VARCHAR" />
+    <result column="member_num" property="memberNum" jdbcType="INTEGER" />
+    <result column="liveness" property="liveness" jdbcType="INTEGER" />
+    <result column="guild_photo" property="guildPhoto" jdbcType="VARCHAR" />
+    <result column="declaration" property="declaration" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, guild_name, member_num, liveness, guild_photo, declaration, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from man_simple_guild
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from man_simple_guild
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.manba.simple.domain.entity.ManSimpleGuildEntity" >
+    insert into man_simple_guild (id, guild_name, member_num, 
+      liveness, guild_photo, declaration, 
+      create_user, create_time)
+    values (#{id,jdbcType=BIGINT}, #{guildName,jdbcType=VARCHAR}, #{memberNum,jdbcType=INTEGER}, 
+      #{liveness,jdbcType=INTEGER}, #{guildPhoto,jdbcType=VARCHAR}, #{declaration,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.manba.simple.domain.entity.ManSimpleGuildEntity" >
+    insert into man_simple_guild
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="guildName != null" >
+        guild_name,
+      </if>
+      <if test="memberNum != null" >
+        member_num,
+      </if>
+      <if test="liveness != null" >
+        liveness,
+      </if>
+      <if test="guildPhoto != null" >
+        guild_photo,
+      </if>
+      <if test="declaration != null" >
+        declaration,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="guildName != null" >
+        #{guildName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNum != null" >
+        #{memberNum,jdbcType=INTEGER},
+      </if>
+      <if test="liveness != null" >
+        #{liveness,jdbcType=INTEGER},
+      </if>
+      <if test="guildPhoto != null" >
+        #{guildPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="declaration != null" >
+        #{declaration,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manba.simple.domain.entity.ManSimpleGuildEntity" >
+    update man_simple_guild
+    <set >
+      <if test="guildName != null" >
+        guild_name = #{guildName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNum != null" >
+        member_num = #{memberNum,jdbcType=INTEGER},
+      </if>
+      <if test="liveness != null" >
+        liveness = #{liveness,jdbcType=INTEGER},
+      </if>
+      <if test="guildPhoto != null" >
+        guild_photo = #{guildPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="declaration != null" >
+        declaration = #{declaration,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manba.simple.domain.entity.ManSimpleGuildEntity" >
+    update man_simple_guild
+    set guild_name = #{guildName,jdbcType=VARCHAR},
+      member_num = #{memberNum,jdbcType=INTEGER},
+      liveness = #{liveness,jdbcType=INTEGER},
+      guild_photo = #{guildPhoto,jdbcType=VARCHAR},
+      declaration = #{declaration,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

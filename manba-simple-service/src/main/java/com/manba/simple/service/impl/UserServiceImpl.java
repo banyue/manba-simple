@@ -1,7 +1,7 @@
 package com.manba.simple.service.impl;
 
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
-import com.manba.simple.mapper.ManSimpleUserMapper;
+import com.manba.simple.mapper.ManSimpleUserEntityMapper;
 import com.manba.simple.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    ManSimpleUserMapper manSimpleUserMapper;
+    ManSimpleUserEntityMapper manSimpleUserEntityMapper;
 
     public ManSimpleUserEntity getOneUserInfo(ManSimpleUserEntity entity) {
-        return manSimpleUserMapper.selectManSimpleUser(entity);
+        return manSimpleUserEntityMapper.selectByPrimaryKey(entity.getId());
     }
 }

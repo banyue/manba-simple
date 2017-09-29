@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manba.simple.mapper.ManSimpleZoneEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="zone_title" property="zoneTitle" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="zone_content" property="zoneContent" jdbcType="VARCHAR" />
+    <result column="zone_image" property="zoneImage" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, zone_title, user_id, zone_content, zone_image, publish_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from man_simple_zone
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from man_simple_zone
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    insert into man_simple_zone (id, zone_title, user_id, 
+      zone_content, zone_image, publish_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{zoneTitle,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{zoneContent,jdbcType=VARCHAR}, #{zoneImage,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    insert into man_simple_zone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="zoneTitle != null" >
+        zone_title,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="zoneContent != null" >
+        zone_content,
+      </if>
+      <if test="zoneImage != null" >
+        zone_image,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="zoneTitle != null" >
+        #{zoneTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="zoneContent != null" >
+        #{zoneContent,jdbcType=VARCHAR},
+      </if>
+      <if test="zoneImage != null" >
+        #{zoneImage,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    update man_simple_zone
+    <set >
+      <if test="zoneTitle != null" >
+        zone_title = #{zoneTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="zoneContent != null" >
+        zone_content = #{zoneContent,jdbcType=VARCHAR},
+      </if>
+      <if test="zoneImage != null" >
+        zone_image = #{zoneImage,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manba.simple.domain.entity.ManSimpleZoneEntity" >
+    update man_simple_zone
+    set zone_title = #{zoneTitle,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      zone_content = #{zoneContent,jdbcType=VARCHAR},
+      zone_image = #{zoneImage,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

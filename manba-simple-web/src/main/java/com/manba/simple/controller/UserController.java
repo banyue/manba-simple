@@ -4,6 +4,7 @@ import com.manba.simple.api.OpenUserService;
 import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
+import io.swagger.annotations.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping
+@Api("用户相关API")
 public class UserController {
 
     @Resource
@@ -28,6 +30,7 @@ public class UserController {
         return "Hello World!";
     }
 
+    @ApiOperation("获取用户信息")
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ServiceResponse<UserInfoResponse> getUser(@PathVariable String id, Model model) {
         UserLoginRequest request = new UserLoginRequest();
