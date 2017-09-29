@@ -103,4 +103,10 @@
       publish_time = #{publishTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectZonesByCondition" parameterType="com.manba.simple.domain.inside.ZoneEntityRequest" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from man_simple_zone
+  </select>
 </mapper>

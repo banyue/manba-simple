@@ -2,6 +2,8 @@ package com.manba.simple.mapper;
 
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
 
+import java.util.List;
+
 public interface ManSimpleZoneEntityMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface ManSimpleZoneEntityMapper {
     int updateByPrimaryKeySelective(ManSimpleZoneEntity record);
 
     int updateByPrimaryKey(ManSimpleZoneEntity record);
+
+    List<ManSimpleZoneEntity> selectZonesByCondition(ManSimpleZoneEntity record);
 }
