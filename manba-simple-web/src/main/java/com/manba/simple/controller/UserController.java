@@ -4,12 +4,11 @@ import com.manba.simple.api.OpenUserService;
 import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
+import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -39,5 +38,18 @@ public class UserController {
         return response;
     }
 
+    @ApiOperation("上传用户头像")
+    @RequestMapping(value = "/uploadPhoto/{id}", method = RequestMethod.POST)
+    public ServiceResponse<String> uploadPhoto(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+        UserLoginRequest request = new UserLoginRequest();
+        ServiceResponse<String> response = new ServiceResponse<String>();
+        request.setUserId(id);
+        try {
+            ImgUploadUtil.uploadImg(file);
+            //response = userService.uploadPhoto(request);
+        } catch (Exception e) {
 
+        }
+        return response;
+    }
 }

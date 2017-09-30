@@ -39,6 +39,7 @@ public class OpenUserServiceImpl implements OpenUserService {
     }
 
     public ServiceResponse<String> uploadPhoto(UserLoginRequest request) {
+
         return null;
     }
 
