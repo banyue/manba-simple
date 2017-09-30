@@ -10,3 +10,5 @@ http://localhost:8080/   输入此地址验证服务是否可用
 http://localhost:8080/user/1  输入此地址验证数据库是否可用（注意：数据库中必须有数据）
 http://localhost:8080/swagger-ui.html   在接口上添加相关API，可通过此页面验证接口的正确性（swagger)
 
+启动ManBaUploadApplicationLauncher类  可启动文件上传服务，然后使用工具ImgUploadUtil   或者直接调uploadFile
+
