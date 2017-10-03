@@ -35,6 +35,11 @@ public interface OpenZoneService {
      */
     ServiceResponse<ZoneResponse> queryZoneDetail(ZoneRequest request);
 
+    /**
+     * 删除动态
+     * @param request
+     * @return
+     */
     ServiceResponse<Integer> deleteZone(ZoneRequest request);
 
     /**
