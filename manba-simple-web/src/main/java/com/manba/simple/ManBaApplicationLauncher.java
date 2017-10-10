@@ -3,6 +3,7 @@ package com.manba.simple;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -11,6 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @SpringBootApplication
 @EnableSwagger2
+@ComponentScan(basePackages = {"com.manba.simple"})
 public class ManBaApplicationLauncher {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ManBaApplicationLauncher.class);

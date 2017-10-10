@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.manba.simple.api.OpenZoneService;
+import com.manba.simple.common.domain.BaseResponseCode;
+import com.manba.simple.common.exception.BaseMsgException;
 import com.manba.simple.domain.constant.YnEnum;
-import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.domain.page.PageBean;
@@ -40,17 +41,25 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         PageBean pageBean = new PageBean();
         ServiceResponse<PageBean<ZoneResponse>> response = new ServiceResponse<PageBean<ZoneResponse>>();
         ZoneEntityRequest zoneEntityRequest = new ZoneEntityRequest();
-        //分页查询
-        PageHelper.startPage(request.getPageNo(),request.getPageSize());
-        List<ManSimpleZoneEntity> entities = zoneService.selectZoneList(zoneEntityRequest);
-        if(null != entities) {
-            Page page = (Page)entities;
-            pageBean.setPageNo(request.getPageNo());
-            pageBean.setPageSize(request.getPageSize());
-            pageBean.setTotalCount(page.getTotal());
-            pageBean.setResultList(entities);
+        try {
+            //分页查询
+            PageHelper.startPage(request.getPageNo(), request.getPageSize());
+            List<ManSimpleZoneEntity> entities = zoneService.selectZoneList(zoneEntityRequest);
+            if (null != entities) {
+                Page page = (Page) entities;
+                pageBean.setPageNo(request.getPageNo());
+                pageBean.setPageSize(request.getPageSize());
+                pageBean.setTotalCount(page.getTotal());
+                pageBean.setResultList(entities);
+            }
+            response.setResult(pageBean);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("查询动态列表业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<PageBean<ZoneResponse>>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("查询动态列表异常！{}", e);
+            return new ServiceResponse<PageBean<ZoneResponse>>(BaseResponseCode.SYSTEM_ERROR);
         }
-        response.setResult(pageBean);
         LOGGER.info("查询动态列表出参：{}", JSON.toJSONString(response));
         return response;
     }
@@ -59,14 +68,22 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         LOGGER.info("发布动态详情入参：{}", JSON.toJSONString(request));
         ServiceResponse<Integer> response = new ServiceResponse<Integer>();
         ManSimpleZoneEntity entity = new ManSimpleZoneEntity();
-        entity.setZoneContent(request.getZoneContent());
-        entity.setZoneTitle(request.getZoneTitle());
-        entity.setZoneImage(request.getZoneImage());
-        entity.setUserId(request.getUserId());
-        entity.setPublishTime(new Date());
-        entity.setYn(YnEnum.YES.getCode());
-        Long id = zoneService.createZone(entity);
-        response.setResult(id.intValue());
+        try {
+            entity.setZoneContent(request.getZoneContent());
+            entity.setZoneTitle(request.getZoneTitle());
+            entity.setZoneImage(request.getZoneImage());
+            entity.setUserId(request.getUserId());
+            entity.setPublishTime(new Date());
+            entity.setYn(YnEnum.YES.getCode());
+            Long id = zoneService.createZone(entity);
+            response.setResult(id.intValue());
+        } catch (BaseMsgException msg) {
+            LOGGER.error("发布动态业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<Integer>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("发布动态异常！{}", e);
+            return new ServiceResponse<Integer>(BaseResponseCode.SYSTEM_ERROR);
+        }
         LOGGER.info("发布动态详情出参：{}", JSON.toJSONString(response));
         return response;
     }
@@ -74,15 +91,23 @@ public class OpenZoneServiceImpl implements OpenZoneService {
     public ServiceResponse<ZoneResponse> queryZoneDetail(ZoneRequest request) {
         LOGGER.info("查询动态详情入参：{}", JSON.toJSONString(request));
         ServiceResponse<ZoneResponse> response = new ServiceResponse<ZoneResponse>();
-        ManSimpleZoneEntity entity = zoneService.selectOneZone(Long.valueOf(request.getId()));
-        ZoneResponse zone = new ZoneResponse();
-        zone.setId(entity.getId());
-        zone.setPublishTime(entity.getPublishTime());
-        zone.setUserId(entity.getUserId());
-        zone.setZoneContent(entity.getZoneContent());
-        zone.setZoneImage(entity.getZoneImage());
-        zone.setZoneTitle(entity.getZoneTitle());
-        response.setResult(zone);
+        try {
+            ManSimpleZoneEntity entity = zoneService.selectOneZone(Long.valueOf(request.getId()));
+            ZoneResponse zone = new ZoneResponse();
+            zone.setId(entity.getId());
+            zone.setPublishTime(entity.getPublishTime());
+            zone.setUserId(entity.getUserId());
+            zone.setZoneContent(entity.getZoneContent());
+            zone.setZoneImage(entity.getZoneImage());
+            zone.setZoneTitle(entity.getZoneTitle());
+            response.setResult(zone);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("查询动态详情业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<ZoneResponse>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("查询动态详情异常！{}", e);
+            return new ServiceResponse<ZoneResponse>(BaseResponseCode.SYSTEM_ERROR);
+        }
         LOGGER.info("查询动态详情出参：{}", JSON.toJSONString(response));
         return response;
     }
@@ -90,8 +115,16 @@ public class OpenZoneServiceImpl implements OpenZoneService {
     public ServiceResponse<Integer> deleteZone(ZoneRequest request) {
         LOGGER.info("删除动态详情入参：{}", JSON.toJSONString(request));
         ServiceResponse<Integer> response = new ServiceResponse<Integer>();
-        Integer id = zoneService.deleteZone(Long.valueOf(request.getId()));
-        response.setResult(id);
+        try {
+            Integer id = zoneService.deleteZone(Long.valueOf(request.getId()));
+            response.setResult(id);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("删除动态业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<Integer>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("删除动态异常！{}", e);
+            return new ServiceResponse<Integer>(BaseResponseCode.SYSTEM_ERROR);
+        }
         LOGGER.info("删除动态详情出参：{}", JSON.toJSONString(response));
         return response;
     }
