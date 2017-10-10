@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.manba.simple.api.OpenZoneService;
 import com.manba.simple.common.domain.BaseResponseCode;
 import com.manba.simple.common.exception.BaseMsgException;
+import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.constant.YnEnum;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
@@ -23,7 +24,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lijin on 2017/9/28.
@@ -43,6 +46,10 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         ZoneEntityRequest zoneEntityRequest = new ZoneEntityRequest();
         try {
             //分页查询
+            if(StringUtil.isEmpty(request.getPageNo()) || StringUtil.isEmpty(request.getPageSize())) {
+                request.setPageNo(1);
+                request.setPageSize(10);
+            }
             PageHelper.startPage(request.getPageNo(), request.getPageSize());
             List<ManSimpleZoneEntity> entities = zoneService.selectZoneList(zoneEntityRequest);
             if (null != entities) {
@@ -69,6 +76,13 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         ServiceResponse<Integer> response = new ServiceResponse<Integer>();
         ManSimpleZoneEntity entity = new ManSimpleZoneEntity();
         try {
+            //参数校验
+            Map<String, Object> param = publishZoneParamMap(request);
+            String checkInfo = StringUtil.checkEmpty(param);
+            if (!StringUtil.isEmpty(checkInfo)) {
+                BaseResponseCode.PARAM_ERROR.setMsg(checkInfo);
+                return new ServiceResponse<Integer>(BaseResponseCode.PARAM_ERROR);
+            }
             entity.setZoneContent(request.getZoneContent());
             entity.setZoneTitle(request.getZoneTitle());
             entity.setZoneImage(request.getZoneImage());
@@ -88,11 +102,25 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         return response;
     }
 
+    private Map<String, Object> publishZoneParamMap(PublishZoneRequest request) {
+        if(null == request) {
+            return null;
+        }
+        Map<String, Object> param = new HashMap<>();
+        param.put("userId", request.getUserId());
+        param.put("zoneTitle", request.getZoneTitle());
+        param.put("zoneContent", request.getZoneContent());
+        return param;
+    }
+
     public ServiceResponse<ZoneResponse> queryZoneDetail(ZoneRequest request) {
         LOGGER.info("查询动态详情入参：{}", JSON.toJSONString(request));
         ServiceResponse<ZoneResponse> response = new ServiceResponse<ZoneResponse>();
         try {
-            ManSimpleZoneEntity entity = zoneService.selectOneZone(Long.valueOf(request.getId()));
+            if(StringUtil.isEmpty(request.getZoneId())) {
+                return new ServiceResponse<ZoneResponse>(BaseResponseCode.PARAM_ERROR);
+            }
+            ManSimpleZoneEntity entity = zoneService.selectOneZone(Long.valueOf(request.getZoneId()));
             ZoneResponse zone = new ZoneResponse();
             zone.setId(entity.getId());
             zone.setPublishTime(entity.getPublishTime());
@@ -116,7 +144,7 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         LOGGER.info("删除动态详情入参：{}", JSON.toJSONString(request));
         ServiceResponse<Integer> response = new ServiceResponse<Integer>();
         try {
-            Integer id = zoneService.deleteZone(Long.valueOf(request.getId()));
+            Integer id = zoneService.deleteZone(Long.valueOf(request.getZoneId()));
             response.setResult(id);
         } catch (BaseMsgException msg) {
             LOGGER.error("删除动态业务异常！{}", JSON.toJSONString(msg));

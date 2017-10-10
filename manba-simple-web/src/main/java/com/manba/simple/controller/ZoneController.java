@@ -38,7 +38,7 @@ public class ZoneController {
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public ServiceResponse<ZoneResponse> zoneDetail(@PathVariable String id) {
         ZoneRequest request = new ZoneRequest();
-        request.setId(id);
+        request.setZoneId(id);
         ServiceResponse<ZoneResponse> response = openZoneService.queryZoneDetail(request);
         return response;
     }
@@ -54,7 +54,7 @@ public class ZoneController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ServiceResponse<Integer> deleteZone(@PathVariable String id) {
         ZoneRequest request = new ZoneRequest();
-        request.setId(id);
+        request.setZoneId(id);
         ServiceResponse<Integer> response = openZoneService.deleteZone(request);
         return response;
     }

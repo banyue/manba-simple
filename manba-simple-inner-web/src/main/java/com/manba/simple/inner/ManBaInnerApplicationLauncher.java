@@ -1,4 +1,4 @@
-package com.manba.simple.inner.config;
+package com.manba.simple.inner;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

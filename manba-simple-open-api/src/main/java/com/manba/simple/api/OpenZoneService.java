@@ -1,6 +1,5 @@
 package com.manba.simple.api;
 
-import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.PublishZoneRequest;
 import com.manba.simple.domain.request.ZoneRequest;
