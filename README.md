@@ -17,3 +17,5 @@ http://localhost:8080/swagger-ui.html   在接口上添加相关API，可通过�
 运行：输入命令  java -jar manba-simple-web.jar  启动对外接口服务
                 java -jar manba-simple-inner-web.jar  启动后台服务
                 java -jar manba-simple-upload.jar  启动文件上传服务
+
+windows下杀死某个进程：taskkill /f /t /im java.exe

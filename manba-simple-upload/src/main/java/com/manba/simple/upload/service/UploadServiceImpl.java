@@ -72,6 +72,10 @@ public class UploadServiceImpl implements UploadService {
         System.out.println(sb.toString());
 
         System.out.println("abc.png".split("\\.").length);
+
+        String imgPath = "9ba\\58c\\ffe5815ea9f365b86a3f473ad5.png";
+        String paths[] = imgPath.split("\\\\");
+        System.out.println(paths[paths.length - 1]);
     }
 
 }

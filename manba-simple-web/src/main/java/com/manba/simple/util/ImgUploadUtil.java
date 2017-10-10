@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Created by lijin on 2017/9/30.
  */
 public class ImgUploadUtil {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ImgUploadUtil.class);
     //图片上传路径
     private static final String IMG_BASE_URL = "http://localhost:9090/upload/";

@@ -2,6 +2,7 @@ package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenUserService;
 import com.manba.simple.domain.request.UserLoginRequest;
+import com.manba.simple.domain.request.UserRegisterRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.util.ImgUploadUtil;
@@ -50,6 +51,30 @@ public class UserController {
         } catch (Exception e) {
 
         }
+        return response;
+    }
+
+    @ApiOperation("注册用户")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ServiceResponse<Boolean> register(UserRegisterRequest request) {
+        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
+        response = userService.userRegister(request);
+        return response;
+    }
+
+    @ApiOperation("注册登录")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ServiceResponse<Boolean> login(UserLoginRequest request) {
+        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
+        response = userService.userLogin(request);
+        return response;
+    }
+
+    @ApiOperation("修改密码")
+    @RequestMapping(value = "/updatePass", method = RequestMethod.POST)
+    public ServiceResponse<Boolean> updatePassword(UserLoginRequest request) {
+        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
+        response = userService.updatePassword(request);
         return response;
     }
 }
