@@ -1,6 +1,7 @@
 package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenUserService;
+import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.request.UserRequest;
@@ -48,8 +49,12 @@ public class UserController {
         request.setUserId(Long.valueOf(id));
         try {
             String path = ImgUploadUtil.uploadImg(file);
-            request.setPhotoUrl(path);
-            response = openUserService.uploadPhoto(request);
+            if(StringUtil.isEmpty(path)) {
+                request.setPhotoUrl(path);
+                response = openUserService.uploadPhoto(request);
+            } else {
+
+            }
         } catch (Exception e) {
 
         }

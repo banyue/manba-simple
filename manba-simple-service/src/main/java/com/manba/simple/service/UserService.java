@@ -38,4 +38,11 @@ public interface UserService {
      * @return
      */
     Integer updateUserInfo(ManSimpleUserEntity entity);
+
+    /**
+     * 上传用户头像，并保存到相册
+     * @param entity
+     * @return
+     */
+    Integer uploadPhotoAndSaveAlbum(ManSimpleUserEntity entity);
 }

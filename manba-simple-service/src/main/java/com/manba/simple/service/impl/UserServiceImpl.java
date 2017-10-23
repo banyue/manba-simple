@@ -4,6 +4,7 @@ import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.mapper.ManSimpleUserEntityMapper;
 import com.manba.simple.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,5 +42,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateUserInfo(ManSimpleUserEntity entity) {
         return manSimpleUserEntityMapper.updateByPrimaryKeySelective(entity);
+    }
+
+    @Override
+    @Transactional
+    public Integer uploadPhotoAndSaveAlbum(ManSimpleUserEntity entity) {
+        manSimpleUserEntityMapper.updateByPrimaryKeySelective(entity);
+        //保存相册表
+
+        return null;
     }
 }

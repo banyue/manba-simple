@@ -116,6 +116,7 @@ public class OpenUserServiceImpl implements OpenUserService {
             ManSimpleUserEntity entity = new ManSimpleUserEntity();
             entity.setId(Long.valueOf(request.getUserId()));
             entity.setPassword(request.getNewPassword());
+            entity.setUpdateTime(new Date());
             Integer id = userService.updateUserInfo(entity);
             response.setResult(id);
         } catch (BaseMsgException msg) {
@@ -131,8 +132,25 @@ public class OpenUserServiceImpl implements OpenUserService {
 
     @Override
     public ServiceResponse<String> uploadPhoto(UserRequest request) {
-
-        return null;
+        //保存到用户表，同时保存到相册表
+        LOGGER.info("上传头像入参：{}", JSON.toJSONString(request));
+        ServiceResponse<String> response = new ServiceResponse<String>();
+        try {
+            ManSimpleUserEntity entity = new ManSimpleUserEntity();
+            entity.setId(Long.valueOf(request.getUserId()));
+            entity.setPhotoUrl(request.getPhotoUrl());
+            entity.setUpdateTime(new Date());
+            userService.uploadPhotoAndSaveAlbum(entity);
+            response.setResult(request.getPhotoUrl());
+        } catch (BaseMsgException msg) {
+            LOGGER.error("上传头像业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<String>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("上传头像异常！{}", e);
+            return new ServiceResponse<String>(BaseResponseCode.SYSTEM_ERROR);
+        }
+        LOGGER.info("上传头像出参：{}", JSON.toJSONString(response));
+        return response;
     }
 
     @Override
