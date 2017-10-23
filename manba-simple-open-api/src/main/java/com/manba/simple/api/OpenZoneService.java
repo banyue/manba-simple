@@ -1,8 +1,7 @@
 package com.manba.simple.api;
 
 import com.manba.simple.domain.page.PageBean;
-import com.manba.simple.domain.request.PublishZoneRequest;
-import com.manba.simple.domain.request.ZoneRequest;
+import com.manba.simple.domain.request.*;
 import com.manba.simple.domain.response.*;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public interface OpenZoneService {
      * @param request
      * @return
      */
-    ServiceResponse<Integer> publishZone(PublishZoneRequest request);
+    ServiceResponse<Long> publishZone(PublishZoneRequest request);
 
     /**
      * 查询动态详情
@@ -42,62 +41,64 @@ public interface OpenZoneService {
     ServiceResponse<Integer> deleteZone(ZoneRequest request);
 
     /**
-     * 关注某人
+     * 关注某
+     * @param request
      * @return
      */
-    ServiceResponse<Boolean> follow();
+    ServiceResponse<Long> follow(FollowRequest request);
 
     /**
      * 关注列表
+     * @param userId
      * @return
      */
-    ServiceResponse<UserInfoResponse> followList();
+    ServiceResponse<List<UserInfoResponse>> followList(Long userId);
 
     /**
      * 点赞某条动态
+     * @param request
      * @return
      */
-    ServiceResponse<Boolean> upvote();
+    ServiceResponse<Long> upvote(UpvoteRequest request);
 
     /**
      * 点赞列表
+     * @param zoneId
      * @return
      */
-    ServiceResponse<UserInfoResponse> upvoteList();
+    ServiceResponse<List<UserInfoResponse>> upvoteList(Long zoneId);
 
     /**
      * 评论动态
+     * @param request
      * @return
      */
-    ServiceResponse<Long> comment();
-
-    /**
-     * 回复评论
-     * @return
-     */
-    ServiceResponse<Long> applyComment();
+    ServiceResponse<Long> comment(CommentRequest request);
 
     /**
      * 查询评论列表
      * @return
      */
-    ServiceResponse<PageBean<CommentInfo>> queryCommentList();
+    ServiceResponse<PageBean<CommentInfoResponse>> queryCommentList(CommentListRequest request);
 
     /**
      * 相册列表
+     * @param userId
      * @return
      */
-    ServiceResponse<List<String>> photoList();
+    ServiceResponse<List<String>> photoList(Long userId);
 
     /**
      * 获取点赞数
+     * @param zoneId
      * @return
      */
-    ServiceResponse<Integer> getUpvoteNum();
+    ServiceResponse<Integer> getUpvoteNum(Long zoneId);
 
     /**
      * 获取关注数
+     * @param userId
      * @return
      */
-    ServiceResponse<Integer> getFollowNum();
+    ServiceResponse<Integer> getFollowNum(Long userId);
 }

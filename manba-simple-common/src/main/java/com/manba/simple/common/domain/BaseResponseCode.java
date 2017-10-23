@@ -21,7 +21,9 @@ public enum BaseResponseCode implements ResponseCode {
     REPEAT_SUBMIT("10", "重复提交"),
     NO_PERMISSION("11", "无此操作权限"),
     IP_CHANGED("12", "IP已变更"),
-    SESSION_EXPIRED("13", "session失效");
+    SESSION_EXPIRED("13", "session失效"),
+    USER_NOT_EXIST("14", "用户不存在"),
+    PASSWORD_ERROR("15", "密码错误");
 
     private String code;
     private String msg;

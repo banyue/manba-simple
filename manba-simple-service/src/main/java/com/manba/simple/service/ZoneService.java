@@ -1,5 +1,6 @@
 package com.manba.simple.service;
 
+import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 
@@ -37,4 +38,55 @@ public interface ZoneService {
      * @return
      */
     Integer deleteZone(Long id);
+
+    /**
+     * 关注某人
+     * @param userId
+     * @param followId
+     * @return
+     */
+    Long follow(Long userId, Long followId);
+
+    /**
+     * 获取关注列表
+     * @param userId
+     * @return
+     */
+    List<ManSimpleUserEntity> followList(Long userId);
+
+    /**
+     * 点赞某条动态
+     * @param userId
+     * @param zoneId
+     * @return
+     */
+    Long upvote(Long userId, Long zoneId);
+
+    /**
+     * 点赞列表
+     * @param zoneId
+     * @return
+     */
+    List<ManSimpleUserEntity> upvoteList(Long zoneId);
+
+    /**
+     * 发表评论
+     * @param request
+     * @return
+     */
+    Long comment(ZoneEntityRequest request);
+
+    /**
+     * 查询评论列表
+     * @param request
+     * @return
+     */
+    List<ManSimpleZoneEntity> selectCommentList(ZoneEntityRequest request);
+
+    /**
+     * 查询点赞数
+     * @param zoneId
+     * @return
+     */
+    Integer getUpvoteNum(Long zoneId);
 }

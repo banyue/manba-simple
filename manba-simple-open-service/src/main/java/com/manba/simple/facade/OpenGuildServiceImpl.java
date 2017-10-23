@@ -15,22 +15,27 @@ import java.util.List;
 @Service
 public class OpenGuildServiceImpl implements OpenGuildService {
 
+    @Override
     public ServiceResponse<List<GuildResponse>> queryGuildList(GuildRequest request) {
         return null;
     }
 
+    @Override
     public ServiceResponse<Boolean> createGuild(CreateGuildRequest request) {
         return null;
     }
 
+    @Override
     public ServiceResponse<GuildResponse> getGuildInfo(GuildRequest request) {
         return null;
     }
 
+    @Override
     public ServiceResponse<List<GuildResponse>> queryGuildMember(GuildRequest request) {
         return null;
     }
 
+    @Override
     public ServiceResponse<Boolean> addGuild() {
         return null;
     }

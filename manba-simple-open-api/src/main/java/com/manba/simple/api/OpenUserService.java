@@ -1,7 +1,8 @@
 package com.manba.simple.api;
 
+import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
-import com.manba.simple.domain.request.UserRegisterRequest;
+import com.manba.simple.domain.request.UserRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 
@@ -24,21 +25,21 @@ public interface OpenUserService {
      * @param request
      * @return
      */
-    ServiceResponse<Boolean> userRegister(UserRegisterRequest request);
+    ServiceResponse<Long> userRegister(UserRequest request);
 
     /**
      * 修改密码
      * @param request
      * @return
      */
-    ServiceResponse<Boolean> updatePassword(UserLoginRequest request);
+    ServiceResponse<Integer> updatePassword(UpdatePasswordRequest request);
 
     /**
      * 上传头像
      * @param request
      * @return
      */
-    ServiceResponse<String> uploadPhoto(UserLoginRequest request);
+    ServiceResponse<String> uploadPhoto(UserRequest request);
 
     /**
      * 查询用户详情
@@ -46,4 +47,6 @@ public interface OpenUserService {
      * @return
      */
     ServiceResponse<UserInfoResponse> queryUserInfo(UserLoginRequest request);
+
+
 }

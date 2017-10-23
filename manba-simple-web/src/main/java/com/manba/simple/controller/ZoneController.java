@@ -2,15 +2,12 @@ package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenZoneService;
 import com.manba.simple.domain.page.PageBean;
-import com.manba.simple.domain.request.PublishZoneRequest;
-import com.manba.simple.domain.request.ZoneRequest;
-import com.manba.simple.domain.response.CommentInfo;
+import com.manba.simple.domain.request.*;
+import com.manba.simple.domain.response.CommentInfoResponse;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.domain.response.ZoneResponse;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,91 +61,71 @@ public class ZoneController {
 
     @ApiOperation("关注某人")
     @RequestMapping(value = "/follow", method = RequestMethod.GET)
-    public ServiceResponse<Boolean> follow(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Boolean> response = openZoneService.follow();
+    public ServiceResponse<Long> follow(String userId, String followId) {
+        FollowRequest request = new FollowRequest();
+        request.setFollowId(Long.valueOf(followId));
+        request.setUserId(Long.valueOf(userId));
+        ServiceResponse<Long> response = openZoneService.follow(request);
         return response;
     }
 
     @ApiOperation("关注列表")
     @RequestMapping(value = "/followList", method = RequestMethod.GET)
-    public ServiceResponse<UserInfoResponse> followList(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<UserInfoResponse> response = openZoneService.followList();
+    public ServiceResponse<List<UserInfoResponse>> followList(@PathVariable String userId) {
+        ServiceResponse<List<UserInfoResponse>> response = openZoneService.followList(Long.valueOf(userId));
         return response;
     }
 
     @ApiOperation("点赞某条动态")
     @RequestMapping(value = "/upvote", method = RequestMethod.GET)
-    public ServiceResponse<Boolean> upvote(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Boolean> response = openZoneService.upvote();
+    public ServiceResponse<Long> upvote(String userId, String zoneId) {
+        UpvoteRequest request = new UpvoteRequest();
+        request.setUpvoteUserId(Long.valueOf(userId));
+        request.setZoneId(Long.valueOf(zoneId));
+        ServiceResponse<Long> response = openZoneService.upvote(request);
         return response;
     }
 
     @ApiOperation("点赞列表")
     @RequestMapping(value = "/upvoteList", method = RequestMethod.GET)
-    public ServiceResponse<UserInfoResponse> upvoteList(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<UserInfoResponse> response = openZoneService.upvoteList();
+    public ServiceResponse<List<UserInfoResponse>> upvoteList(@PathVariable String zoneId) {
+        ServiceResponse<List<UserInfoResponse>> response = openZoneService.upvoteList(Long.valueOf(zoneId));
         return response;
     }
 
     @ApiOperation("评论动态")
     @RequestMapping(value = "/comment", method = RequestMethod.GET)
-    public ServiceResponse<Long> comment(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Long> response = openZoneService.comment();
-        return response;
-    }
-
-    @ApiOperation("回复评论")
-    @RequestMapping(value = "/applyComment", method = RequestMethod.GET)
-    public ServiceResponse<Long> applyComment(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Long> response = openZoneService.applyComment();
+    public ServiceResponse<Long> comment(CommentRequest request) {
+        ServiceResponse<Long> response = openZoneService.comment(request);
         return response;
     }
 
     @ApiOperation("查询评论列表")
     @RequestMapping(value = "/queryCommentList", method = RequestMethod.GET)
-    public ServiceResponse<PageBean<CommentInfo>> queryCommentList(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<PageBean<CommentInfo>> response = openZoneService.queryCommentList();
+    public ServiceResponse<PageBean<CommentInfoResponse>> queryCommentList(@PathVariable String id) {
+        CommentListRequest request = new CommentListRequest();
+        ServiceResponse<PageBean<CommentInfoResponse>> response = openZoneService.queryCommentList(request);
         return response;
     }
 
     @ApiOperation("相册列表")
     @RequestMapping(value = "/photoList", method = RequestMethod.GET)
-    public ServiceResponse<List<String>> photoList(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<List<String>> response = openZoneService.photoList();
+    public ServiceResponse<List<String>> photoList(@PathVariable String userId) {
+        ServiceResponse<List<String>> response = openZoneService.photoList(Long.valueOf(userId));
         return response;
     }
 
     @ApiOperation("获取点赞数")
     @RequestMapping(value = "/getUpvoteNum", method = RequestMethod.GET)
-    public ServiceResponse<Integer> getUpvoteNum(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Integer> response = openZoneService.getUpvoteNum();
+    public ServiceResponse<Integer> getUpvoteNum(@PathVariable String zoneId) {
+        ServiceResponse<Integer> response = openZoneService.getUpvoteNum(Long.valueOf(zoneId));
         return response;
     }
 
     @ApiOperation("获取关注数")
     @RequestMapping(value = "/getFollowNum", method = RequestMethod.GET)
-    public ServiceResponse<Integer> getFollowNum(@PathVariable String id) {
-        ZoneRequest request = new ZoneRequest();
-        request.setZoneId(id);
-        ServiceResponse<Integer> response = openZoneService.getFollowNum();
+    public ServiceResponse<Integer> getFollowNum(@PathVariable String userId) {
+        ServiceResponse<Integer> response = openZoneService.getFollowNum(Long.valueOf(userId));
         return response;
     }
 }

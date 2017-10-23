@@ -1,8 +1,9 @@
 package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenUserService;
+import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
-import com.manba.simple.domain.request.UserRegisterRequest;
+import com.manba.simple.domain.request.UserRequest;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.util.ImgUploadUtil;
@@ -23,7 +24,7 @@ import javax.annotation.Resource;
 public class UserController {
 
     @Resource
-    private OpenUserService userService;
+    private OpenUserService openUserService;
 
     @RequestMapping("/")
     String home() {
@@ -35,19 +36,20 @@ public class UserController {
     public ServiceResponse<UserInfoResponse> getUser(@PathVariable String id, Model model) {
         UserLoginRequest request = new UserLoginRequest();
         request.setUserId(id);
-        ServiceResponse<UserInfoResponse> response = userService.queryUserInfo(request);
+        ServiceResponse<UserInfoResponse> response = openUserService.queryUserInfo(request);
         return response;
     }
 
     @ApiOperation("上传用户头像")
     @RequestMapping(value = "/uploadPhoto/{id}", method = RequestMethod.POST)
     public ServiceResponse<String> uploadPhoto(@PathVariable String id, @RequestParam("file") MultipartFile file) {
-        UserLoginRequest request = new UserLoginRequest();
+        UserRequest request = new UserRequest();
         ServiceResponse<String> response = new ServiceResponse<String>();
-        request.setUserId(id);
+        request.setUserId(Long.valueOf(id));
         try {
-            ImgUploadUtil.uploadImg(file);
-            //response = userService.uploadPhoto(request);
+            String path = ImgUploadUtil.uploadImg(file);
+            request.setPhotoUrl(path);
+            response = openUserService.uploadPhoto(request);
         } catch (Exception e) {
 
         }
@@ -56,25 +58,25 @@ public class UserController {
 
     @ApiOperation("注册用户")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ServiceResponse<Boolean> register(UserRegisterRequest request) {
-        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
-        response = userService.userRegister(request);
+    public ServiceResponse<Long> register(UserRequest request) {
+        ServiceResponse<Long> response = new ServiceResponse<Long>();
+        response = openUserService.userRegister(request);
         return response;
     }
 
-    @ApiOperation("注册登录")
+    @ApiOperation("用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ServiceResponse<Boolean> login(UserLoginRequest request) {
         ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
-        response = userService.userLogin(request);
+        response = openUserService.userLogin(request);
         return response;
     }
 
     @ApiOperation("修改密码")
     @RequestMapping(value = "/updatePass", method = RequestMethod.POST)
-    public ServiceResponse<Boolean> updatePassword(UserLoginRequest request) {
-        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
-        response = userService.updatePassword(request);
+    public ServiceResponse<Integer> updatePassword(UpdatePasswordRequest request) {
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
+        response = openUserService.updatePassword(request);
         return response;
     }
 }

@@ -18,6 +18,7 @@ public class UploadServiceImpl implements UploadService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadServiceImpl.class);
 
+    @Override
     public String saveFile(UploadRequest request, InputStream stream, String uploadRootPath) {
         LOGGER.info("上传文件入参：{}", request.getAuthCode());
         //校验authCode
