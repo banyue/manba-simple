@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
     public List<String> photoList(Long userId) {
         List<String> result = new ArrayList<>();
         List<ManSimplePhotoEntity> entities = manSimplePhotoEntityMapper.queryPhotoList(userId);
-        for(ManSimplePhotoEntity entity : entities) {
+        entities.forEach(entity -> {
             result.add(entity.getPhotoPath());
-        }
+        });
         return result;
     }
 

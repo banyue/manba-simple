@@ -111,7 +111,7 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         if(null == request) {
             return null;
         }
-        Map<String, Object> param = new HashMap<>();
+        Map<String, Object> param = new HashMap<>(3);
         param.put("userId", request.getUserId());
         param.put("zoneTitle", request.getZoneTitle());
         param.put("zoneContent", request.getZoneContent());
@@ -314,10 +314,8 @@ public class OpenZoneServiceImpl implements OpenZoneService {
     public ServiceResponse<List<String>> photoList(Long userId) {
         LOGGER.info("相册入参：{}", userId);
         ServiceResponse<List<String>> response = new ServiceResponse<List<String>>();
-        List<String> result = new ArrayList<>();
         try {
             List<String> list = userService.photoList(userId);
-            //参数转换
             response.setResult(list);
         } catch (BaseMsgException msg) {
             LOGGER.error("相册业务异常！{}", JSON.toJSONString(msg));
