@@ -150,4 +150,10 @@
       yn = #{yn,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectGuildList" parameterType="com.manba.simple.domain.inside.GuildEntityRequest" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from man_simple_guild
+  </select>
 </mapper>

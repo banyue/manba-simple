@@ -1,15 +1,22 @@
-package com.manba.simple.domain.request;
+package com.manba.simple.domain.inside;
 
 /**
- * 公会请求实体
- * Created by lijin on 2017/9/26.
+ * Created by lijin on 2017/10/24.
  */
-public class GuildRequest {
+public class GuildUserEntityRequest {
 
-    private String guildId;  //公会id
+    private Long guildId; //公会id
 
     private Integer pageSize;
     private Integer pageNo;
+
+    public Long getGuildId() {
+        return guildId;
+    }
+
+    public void setGuildId(Long guildId) {
+        this.guildId = guildId;
+    }
 
     public Integer getPageSize() {
         return pageSize;
@@ -25,13 +32,5 @@ public class GuildRequest {
 
     public void setPageNo(Integer pageNo) {
         this.pageNo = pageNo;
-    }
-
-    public String getGuildId() {
-        return guildId;
-    }
-
-    public void setGuildId(String guildId) {
-        this.guildId = guildId;
     }
 }

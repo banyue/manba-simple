@@ -1,9 +1,12 @@
 package com.manba.simple.api;
 
+import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.CreateGuildRequest;
 import com.manba.simple.domain.request.GuildRequest;
+import com.manba.simple.domain.request.GuildUserRequest;
 import com.manba.simple.domain.response.GuildResponse;
 import com.manba.simple.domain.response.ServiceResponse;
+import com.manba.simple.domain.response.UserInfoResponse;
 
 import java.util.List;
 
@@ -18,14 +21,14 @@ public interface OpenGuildService {
      * @param request
      * @return
      */
-    ServiceResponse<List<GuildResponse>> queryGuildList(GuildRequest request);
+    ServiceResponse<PageBean<GuildResponse>> queryGuildList(GuildRequest request);
 
     /**
      * 创建公会
      * @param request
      * @return
      */
-    ServiceResponse<Boolean> createGuild(CreateGuildRequest request);
+    ServiceResponse<Long> createGuild(CreateGuildRequest request);
 
     /**
      * 查询公会详情
@@ -39,11 +42,19 @@ public interface OpenGuildService {
      * @param request
      * @return
      */
-    ServiceResponse<List<GuildResponse>> queryGuildMember(GuildRequest request);
+    ServiceResponse<PageBean<UserInfoResponse>> queryGuildMember(GuildRequest request);
 
     /**
      * 加入公会
+     * @param request
      * @return
      */
-    ServiceResponse<Boolean> addGuild();
+    ServiceResponse<Long> addGuild(GuildUserRequest request);
+
+    /**
+     * 退出公会
+     * @param request
+     * @return
+     */
+    ServiceResponse<Integer> quitGuild(GuildUserRequest request);
 }

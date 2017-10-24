@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.manba.simple.mapper.ManSimpleGuildUserEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.manba.simple.domain.entity.ManSimpleGuildUserEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="guild_id" property="guildId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="yn" property="yn" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, guild_id, create_time, yn
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from man_simple_guild_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from man_simple_guild_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.manba.simple.domain.entity.ManSimpleGuildUserEntity" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into man_simple_guild_user (user_id, guild_id, create_time, 
+      yn)
+    values (#{userId,jdbcType=BIGINT}, #{guildId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{yn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.manba.simple.domain.entity.ManSimpleGuildUserEntity" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into man_simple_guild_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="guildId != null" >
+        guild_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="yn != null" >
+        yn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="guildId != null" >
+        #{guildId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yn != null" >
+        #{yn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manba.simple.domain.entity.ManSimpleGuildUserEntity" >
+    update man_simple_guild_user
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="guildId != null" >
+        guild_id = #{guildId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yn != null" >
+        yn = #{yn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manba.simple.domain.entity.ManSimpleGuildUserEntity" >
+    update man_simple_guild_user
+    set user_id = #{userId,jdbcType=BIGINT},
+      guild_id = #{guildId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      yn = #{yn,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryGuildMember" parameterType="com.manba.simple.domain.inside.GuildUserEntityRequest" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from man_simple_guild_user
+    WHERE
+    guild_id = #{guildId}
+  </select>
+</mapper>

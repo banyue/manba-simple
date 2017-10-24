@@ -45,8 +45,8 @@ public class ZoneController {
 
     @ApiOperation("发布动态")
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
-    public ServiceResponse<Integer> publishZone(PublishZoneRequest request) {
-        ServiceResponse<Integer> response = openZoneService.publishZone(request);
+    public ServiceResponse<Long> publishZone(PublishZoneRequest request) {
+        ServiceResponse<Long> response = openZoneService.publishZone(request);
         return response;
     }
 
@@ -80,7 +80,7 @@ public class ZoneController {
     @RequestMapping(value = "/upvote", method = RequestMethod.GET)
     public ServiceResponse<Long> upvote(String userId, String zoneId) {
         UpvoteRequest request = new UpvoteRequest();
-        request.setUpvoteUserId(Long.valueOf(userId));
+        request.setUserId(Long.valueOf(userId));
         request.setZoneId(Long.valueOf(zoneId));
         ServiceResponse<Long> response = openZoneService.upvote(request);
         return response;

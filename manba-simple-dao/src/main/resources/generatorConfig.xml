@@ -79,7 +79,7 @@
         <!-- <table tableName="app_bind_status" domainObjectName="AppBindStatus"
             enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
             enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
-        <table tableName="man_simple_comment" domainObjectName="ManSimpleCommentEntity"
+        <!--<table tableName="man_simple_comment" domainObjectName="ManSimpleCommentEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -104,6 +104,12 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="man_simple_upvote" domainObjectName="ManSimpleUpvoteEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>-->
+        <table tableName="man_simple_guild_user" domainObjectName="ManSimpleGuildUserEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

@@ -1,6 +1,9 @@
 package com.manba.simple.mapper;
 
 import com.manba.simple.domain.entity.ManSimpleGuildEntity;
+import com.manba.simple.domain.inside.GuildEntityRequest;
+
+import java.util.List;
 
 public interface ManSimpleGuildEntityMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +17,6 @@ public interface ManSimpleGuildEntityMapper {
     int updateByPrimaryKeySelective(ManSimpleGuildEntity record);
 
     int updateByPrimaryKey(ManSimpleGuildEntity record);
+
+    List<ManSimpleGuildEntity> selectGuildList(GuildEntityRequest request);
 }
