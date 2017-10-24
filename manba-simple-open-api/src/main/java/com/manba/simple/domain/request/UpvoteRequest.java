@@ -8,16 +8,8 @@ import java.io.Serializable;
  */
 public class UpvoteRequest implements Serializable {
 
-    private Long upvoteUserId;
+    private Long userId;
     private Long zoneId;
-
-    public Long getUpvoteUserId() {
-        return upvoteUserId;
-    }
-
-    public void setUpvoteUserId(Long upvoteUserId) {
-        this.upvoteUserId = upvoteUserId;
-    }
 
     public Long getZoneId() {
         return zoneId;
@@ -25,5 +17,13 @@ public class UpvoteRequest implements Serializable {
 
     public void setZoneId(Long zoneId) {
         this.zoneId = zoneId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

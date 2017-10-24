@@ -101,4 +101,25 @@ public interface OpenZoneService {
      * @return
      */
     ServiceResponse<Integer> getFollowNum(Long userId);
+
+    /**
+     * 收藏
+     * @param request
+     * @return
+     */
+    ServiceResponse<Long> favorite(UpvoteRequest request);
+
+    /**
+     * 取消收藏
+     * @param request
+     * @return
+     */
+    ServiceResponse<Integer> cancelFavorite(UpvoteRequest request);
+
+    /**
+     * 收藏列表
+     * @param request
+     * @return
+     */
+    ServiceResponse<PageBean<ZoneResponse>> favoriteList(ZoneRequest request);
 }

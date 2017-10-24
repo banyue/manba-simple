@@ -58,7 +58,7 @@
 
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。?是否可以多个 -->
 
-        <table tableName="man_simple_user" domainObjectName="ManSimpleUserEntity"
+        <!--<table tableName="man_simple_user" domainObjectName="ManSimpleUserEntity"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -75,11 +75,40 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
         <!-- <table tableName="app_bind_status" domainObjectName="AppBindStatus"
             enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
             enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
-
+        <table tableName="man_simple_comment" domainObjectName="ManSimpleCommentEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="man_simple_favorite" domainObjectName="ManSimpleFavoriteEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="man_simple_follow" domainObjectName="ManSimpleFollowEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="man_simple_photo" domainObjectName="ManSimplePhotoEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="man_simple_upvote" domainObjectName="ManSimpleUpvoteEntity"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
 <!-- mybatis-generator:generate 执行命令-->

@@ -8,8 +8,11 @@ import com.manba.simple.common.domain.BaseResponseCode;
 import com.manba.simple.common.exception.BaseMsgException;
 import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.constant.YnEnum;
+import com.manba.simple.domain.entity.ManSimpleCommentEntity;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
+import com.manba.simple.domain.inside.CommentEntityRequest;
+import com.manba.simple.domain.inside.FavoriteEntityRequest;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.*;
@@ -187,6 +190,13 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         try {
             List<ManSimpleUserEntity> list = zoneService.followList(userId);
             //参数转换
+            UserInfoResponse info;
+            for(ManSimpleUserEntity entity : list) {
+                info = new UserInfoResponse();
+                info.setUserId(entity.getId());
+                info.setPhotoUrl(entity.getPhotoUrl());
+                result.add(info);
+            }
             response.setResult(result);
         } catch (BaseMsgException msg) {
             LOGGER.error("关注列表业务异常！{}", JSON.toJSONString(msg));
@@ -204,7 +214,7 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         LOGGER.info("点赞入参：{}", JSON.toJSONString(request));
         ServiceResponse<Long> response = new ServiceResponse<Long>();
         try {
-            Long id = zoneService.upvote(request.getUpvoteUserId(), request.getZoneId());
+            Long id = zoneService.upvote(request.getUserId(), request.getZoneId());
             response.setResult(id);
         } catch (BaseMsgException msg) {
             LOGGER.error("点赞业务异常！{}", JSON.toJSONString(msg));
@@ -225,6 +235,13 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         try {
             List<ManSimpleUserEntity> list = zoneService.upvoteList(zoneId);
             //参数转换
+            UserInfoResponse info;
+            for(ManSimpleUserEntity entity : list) {
+                info = new UserInfoResponse();
+                info.setUserId(entity.getId());
+                info.setPhotoUrl(entity.getPhotoUrl());
+                result.add(info);
+            }
             response.setResult(result);
         } catch (BaseMsgException msg) {
             LOGGER.error("点赞列表业务异常！{}", JSON.toJSONString(msg));
@@ -242,8 +259,13 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         LOGGER.info("评论入参：{}", JSON.toJSONString(request));
         ServiceResponse<Long> response = new ServiceResponse<Long>();
         try {
-            //Long id = zoneService.upvote(request.getUpvoteUserId(), request.getZoneId());
-            //response.setResult(id);
+            ManSimpleCommentEntity entity = new ManSimpleCommentEntity();
+            entity.setZoneId(request.getZoneId());
+            entity.setUserId(request.getUserId());
+            entity.setContent(request.getContent());
+            entity.setParentId(null == request.getCommentParentId() ? 0L : request.getCommentParentId());
+            Long id = zoneService.comment(entity);
+            response.setResult(id);
         } catch (BaseMsgException msg) {
             LOGGER.error("评论业务异常！{}", JSON.toJSONString(msg));
             return new ServiceResponse<Long>(msg.getCode(), msg.getMessage());
@@ -260,7 +282,7 @@ public class OpenZoneServiceImpl implements OpenZoneService {
         LOGGER.info("查询评论列表入参：{}", JSON.toJSONString(request));
         PageBean pageBean = new PageBean();
         ServiceResponse<PageBean<CommentInfoResponse>> response = new ServiceResponse<PageBean<CommentInfoResponse>>();
-        ZoneEntityRequest zoneEntityRequest = new ZoneEntityRequest();
+        CommentEntityRequest commentEntityRequest = new CommentEntityRequest();
         try {
             //分页查询
             if(StringUtil.isEmpty(request.getPageNo()) || StringUtil.isEmpty(request.getPageSize())) {
@@ -268,7 +290,7 @@ public class OpenZoneServiceImpl implements OpenZoneService {
                 request.setPageSize(10);
             }
             PageHelper.startPage(request.getPageNo(), request.getPageSize());
-            List<ManSimpleZoneEntity> entities = zoneService.selectZoneList(zoneEntityRequest);
+            List<ManSimpleCommentEntity> entities = zoneService.selectCommentList(commentEntityRequest);
             if (null != entities) {
                 Page page = (Page) entities;
                 pageBean.setPageNo(request.getPageNo());
@@ -341,6 +363,75 @@ public class OpenZoneServiceImpl implements OpenZoneService {
             return new ServiceResponse<Integer>(BaseResponseCode.SYSTEM_ERROR);
         }
         LOGGER.info("获取关注数出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public ServiceResponse<Long> favorite(UpvoteRequest request) {
+        LOGGER.info("收藏动态入参：{}", JSON.toJSONString(request));
+        ServiceResponse<Long> response = new ServiceResponse<Long>();
+        try {
+            Long id = zoneService.follow(request.getUserId(), request.getZoneId());
+            response.setResult(id);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("收藏动态业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<Long>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("收藏动态异常！{}", e);
+            return new ServiceResponse<Long>(BaseResponseCode.SYSTEM_ERROR);
+        }
+        LOGGER.info("收藏动态出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public ServiceResponse<Integer> cancelFavorite(UpvoteRequest request) {
+        LOGGER.info("取消收藏入参：{}", JSON.toJSONString(request));
+        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
+        try {
+            Integer id = zoneService.cancelFavorite(request.getUserId(), request.getZoneId());
+            response.setResult(id);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("取消收藏业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<Integer>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("取消收藏异常！{}", e);
+            return new ServiceResponse<Integer>(BaseResponseCode.SYSTEM_ERROR);
+        }
+        LOGGER.info("取消收藏出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public ServiceResponse<PageBean<ZoneResponse>> favoriteList(ZoneRequest request) {
+        LOGGER.info("收藏列表入参：{}", JSON.toJSONString(request));
+        PageBean pageBean = new PageBean();
+        ServiceResponse<PageBean<ZoneResponse>> response = new ServiceResponse<PageBean<ZoneResponse>>();
+        FavoriteEntityRequest favoriteEntityRequest = new FavoriteEntityRequest();
+        try {
+            //分页查询
+            if(StringUtil.isEmpty(request.getPageNo()) || StringUtil.isEmpty(request.getPageSize())) {
+                request.setPageNo(1);
+                request.setPageSize(10);
+            }
+            PageHelper.startPage(request.getPageNo(), request.getPageSize());
+            List<ManSimpleZoneEntity> entities = zoneService.queryFavoriteList(favoriteEntityRequest);
+            if (null != entities) {
+                Page page = (Page) entities;
+                pageBean.setPageNo(request.getPageNo());
+                pageBean.setPageSize(request.getPageSize());
+                pageBean.setTotalCount(page.getTotal());
+                pageBean.setResultList(entities);
+            }
+            response.setResult(pageBean);
+        } catch (BaseMsgException msg) {
+            LOGGER.error("收藏列表业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<PageBean<ZoneResponse>>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("收藏列表异常！{}", e);
+            return new ServiceResponse<PageBean<ZoneResponse>>(BaseResponseCode.SYSTEM_ERROR);
+        }
+        LOGGER.info("收藏列表出参：{}", JSON.toJSONString(response));
         return response;
     }
 }

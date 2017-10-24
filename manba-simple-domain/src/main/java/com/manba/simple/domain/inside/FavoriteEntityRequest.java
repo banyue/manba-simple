@@ -1,12 +1,11 @@
 package com.manba.simple.domain.inside;
 
 /**
- * Created by lijin on 2017/9/29.
+ * Created by lijin on 2017/10/24.
  */
-public class ZoneEntityRequest {
+public class FavoriteEntityRequest {
 
-    private String zoneId;  //动态id
-    private String userId; //用户id
+    private Long userId;
 
     private Integer pageSize;
     private Integer pageNo;
@@ -27,19 +26,11 @@ public class ZoneEntityRequest {
         this.pageNo = pageNo;
     }
 
-    public String getZoneId() {
-        return zoneId;
-    }
-
-    public void setZoneId(String zoneId) {
-        this.zoneId = zoneId;
-    }
-
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

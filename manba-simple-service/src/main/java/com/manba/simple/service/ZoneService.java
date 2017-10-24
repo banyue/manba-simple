@@ -1,7 +1,10 @@
 package com.manba.simple.service;
 
+import com.manba.simple.domain.entity.ManSimpleCommentEntity;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.entity.ManSimpleZoneEntity;
+import com.manba.simple.domain.inside.CommentEntityRequest;
+import com.manba.simple.domain.inside.FavoriteEntityRequest;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 
 import java.util.List;
@@ -71,17 +74,17 @@ public interface ZoneService {
 
     /**
      * 发表评论
-     * @param request
+     * @param entity
      * @return
      */
-    Long comment(ZoneEntityRequest request);
+    Long comment(ManSimpleCommentEntity entity);
 
     /**
      * 查询评论列表
      * @param request
      * @return
      */
-    List<ManSimpleZoneEntity> selectCommentList(ZoneEntityRequest request);
+    List<ManSimpleCommentEntity> selectCommentList(CommentEntityRequest request);
 
     /**
      * 查询点赞数
@@ -89,4 +92,27 @@ public interface ZoneService {
      * @return
      */
     Integer getUpvoteNum(Long zoneId);
+
+    /**
+     * 收藏动态
+     * @param userId
+     * @param zoneId
+     * @return
+     */
+    Long favorite(Long userId, Long zoneId);
+
+    /**
+     * 取消收藏
+     * @param userId
+     * @param zoneId
+     * @return
+     */
+    Integer cancelFavorite(Long userId, Long zoneId);
+
+    /**
+     * 收藏列表
+     * @param request
+     * @return
+     */
+    List<ManSimpleZoneEntity> queryFavoriteList(FavoriteEntityRequest request);
 }
