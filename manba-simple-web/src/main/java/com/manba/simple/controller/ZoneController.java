@@ -1,17 +1,20 @@
 package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenZoneService;
+import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.*;
 import com.manba.simple.domain.response.CommentInfoResponse;
 import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.domain.response.ZoneResponse;
+import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,6 +49,18 @@ public class ZoneController {
     @ApiOperation("发布动态")
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public ServiceResponse<Long> publishZone(PublishZoneRequest request) {
+        //上传图片
+        StringBuffer sb = new StringBuffer();
+        if(null != request.getZoneFile() && !request.getZoneFile().isEmpty()) {
+            String path;
+            for(MultipartFile file : request.getZoneFile()) {
+                path = ImgUploadUtil.uploadImg(file);
+                if(!StringUtil.isEmpty(path)) {
+                    sb.append(path).append(";");
+                }
+            }
+        }
+        request.setZoneImage(sb.toString());
         ServiceResponse<Long> response = openZoneService.publishZone(request);
         return response;
     }

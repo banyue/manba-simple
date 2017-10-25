@@ -1,7 +1,6 @@
 /*
-Navicat MySQL Data Transfer
 Source Database       : manba
-Date: 2017-10-24 14:54:20
+Date: 2017-10-25 17:50:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,6 +78,23 @@ CREATE TABLE `man_simple_guild` (
 
 -- ----------------------------
 -- Records of man_simple_guild
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for man_simple_guild_user
+-- ----------------------------
+DROP TABLE IF EXISTS `man_simple_guild_user`;
+CREATE TABLE `man_simple_guild_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `guild_id` bigint(20) NOT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `yn` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of man_simple_guild_user
 -- ----------------------------
 
 -- ----------------------------

@@ -1,5 +1,7 @@
 package com.manba.simple.service.impl;
 
+import com.manba.simple.common.util.StringUtil;
+import com.manba.simple.domain.constant.BusiTypeEnum;
 import com.manba.simple.domain.constant.YnEnum;
 import com.manba.simple.domain.entity.*;
 import com.manba.simple.domain.inside.CommentEntityRequest;
@@ -8,9 +10,11 @@ import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.mapper.*;
 import com.manba.simple.service.ZoneService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +36,8 @@ public class ZoneServiceImpl implements ZoneService {
     ManSimpleCommentEntityMapper manSimpleCommentEntityMapper;
     @Resource
     ManSimpleFavoriteEntityMapper manSimpleFavoriteEntityMapper;
+    @Resource
+    ManSimplePhotoEntityMapper manSimplePhotoEntityMapper;
 
     @Override
     public List<ManSimpleZoneEntity> selectZoneList(ZoneEntityRequest request) {
@@ -45,8 +51,25 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long createZone(ManSimpleZoneEntity request) {
         manSimpleZoneEntityMapper.insertSelective(request);
+        //根据图片路径，保存到相册，并返回保存路径
+        if(!StringUtil.isEmpty(request.getZoneImage())) {
+            ManSimplePhotoEntity entity;
+            List<String> paths = Arrays.asList(request.getZoneImage().split(";"));
+            for(String path : paths) {
+                if(!StringUtil.isEmpty(path)) {
+                    entity = new ManSimplePhotoEntity();
+                    entity.setBusiType(BusiTypeEnum.ZONE.getCode());
+                    entity.setUserId(request.getUserId());
+                    entity.setYn(YnEnum.YES.getCode());
+                    entity.setPhotoPath(path);
+                    entity.setCreateTime(new Date());
+                    manSimplePhotoEntityMapper.insertSelective(entity);
+                }
+            }
+        }
         //返回主键
         return request.getId();
     }

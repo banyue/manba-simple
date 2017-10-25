@@ -1,6 +1,7 @@
 package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenUserService;
+import com.manba.simple.common.domain.BaseResponseCode;
 import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
@@ -53,10 +54,10 @@ public class UserController {
                 request.setPhotoUrl(path);
                 response = openUserService.uploadPhoto(request);
             } else {
-
+                return new ServiceResponse<String>(BaseResponseCode.FAILURE);
             }
         } catch (Exception e) {
-
+            return new ServiceResponse<String>(BaseResponseCode.FAILURE);
         }
         return response;
     }
@@ -64,24 +65,21 @@ public class UserController {
     @ApiOperation("注册用户")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ServiceResponse<Long> register(UserRequest request) {
-        ServiceResponse<Long> response = new ServiceResponse<Long>();
-        response = openUserService.userRegister(request);
+        ServiceResponse<Long> response = openUserService.userRegister(request);
         return response;
     }
 
     @ApiOperation("用户登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ServiceResponse<Boolean> login(UserLoginRequest request) {
-        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
-        response = openUserService.userLogin(request);
+    public ServiceResponse<UserInfoResponse> login(UserLoginRequest request) {
+        ServiceResponse<UserInfoResponse> response = openUserService.userLogin(request);
         return response;
     }
 
     @ApiOperation("修改密码")
     @RequestMapping(value = "/updatePass", method = RequestMethod.POST)
     public ServiceResponse<Integer> updatePassword(UpdatePasswordRequest request) {
-        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
-        response = openUserService.updatePassword(request);
+        ServiceResponse<Integer> response = openUserService.updatePassword(request);
         return response;
     }
 }

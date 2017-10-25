@@ -1,6 +1,9 @@
 package com.manba.simple.domain.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 发布动态请求
@@ -12,6 +15,7 @@ public class PublishZoneRequest implements Serializable {
     private Long userId;
     private String zoneContent;
     private String zoneImage;
+    private List<MultipartFile> zoneFile;
 
     public String getZoneTitle() {
         return zoneTitle;
@@ -43,5 +47,13 @@ public class PublishZoneRequest implements Serializable {
 
     public void setZoneImage(String zoneImage) {
         this.zoneImage = zoneImage;
+    }
+
+    public List<MultipartFile> getZoneFile() {
+        return zoneFile;
+    }
+
+    public void setZoneFile(List<MultipartFile> zoneFile) {
+        this.zoneFile = zoneFile;
     }
 }
