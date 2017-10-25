@@ -18,7 +18,7 @@ public interface OpenUserService {
      * @param request
      * @return
      */
-    ServiceResponse<Boolean> userLogin(UserLoginRequest request);
+    ServiceResponse<UserInfoResponse> userLogin(UserLoginRequest request);
 
     /**
      * 用户注册

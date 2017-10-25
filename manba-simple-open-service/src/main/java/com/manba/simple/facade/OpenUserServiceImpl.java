@@ -34,33 +34,37 @@ public class OpenUserServiceImpl implements OpenUserService {
     UserService userService;
 
     @Override
-    public ServiceResponse<Boolean> userLogin(UserLoginRequest request) {
+    public ServiceResponse<UserInfoResponse> userLogin(UserLoginRequest request) {
         LOGGER.info("用户登录入参：{}", JSON.toJSONString(request));
-        ServiceResponse<Boolean> response = new ServiceResponse<Boolean>();
+        ServiceResponse<UserInfoResponse> response = new ServiceResponse<UserInfoResponse>();
         try {
             ManSimpleUserEntity entity = new ManSimpleUserEntity();
+            entity.setPhone(request.getPhone());
+            entity.setPassword(request.getPassword());
             ManSimpleUserEntity one = userService.getOneUserInfo(entity);
             if(null == one) {
                 //用户不存在
-                response.setResult(false);
-                response.setCode(BaseResponseCode.USER_NOT_EXIST.getCode());
-                response.setMsg(BaseResponseCode.USER_NOT_EXIST.getMsg());
+                return new ServiceResponse<UserInfoResponse>(BaseResponseCode.USER_NOT_EXIST);
             }
             if(one.getPassword().equals(request.getPassword())) {
                 //密码错误
-                response.setResult(false);
-                response.setCode(BaseResponseCode.PASSWORD_ERROR.getCode());
-                response.setMsg(BaseResponseCode.PASSWORD_ERROR.getMsg());
+                return new ServiceResponse<UserInfoResponse>(BaseResponseCode.PASSWORD_ERROR);
             }
-            response.setResult(true);
+            UserInfoResponse userInfo = new UserInfoResponse();
+            userInfo.setUserId(entity.getId());
+            userInfo.setPhotoUrl(entity.getPhotoUrl());
+            userInfo.setNickName(entity.getNickName());
+            userInfo.setPhone(entity.getPhone());
+            response.isSuccess();
+            response.setResult(userInfo);
             response.setCode(BaseResponseCode.SUCCESS.getCode());
             response.setMsg(BaseResponseCode.SUCCESS.getMsg());
         } catch (BaseMsgException msg) {
             LOGGER.error("用户登录业务异常！{}", JSON.toJSONString(msg));
-            return new ServiceResponse<Boolean>(msg.getCode(), msg.getMessage());
+            return new ServiceResponse<UserInfoResponse>(msg.getCode(), msg.getMessage());
         } catch (Exception e) {
             LOGGER.error("用户登录异常！{}", e);
-            return new ServiceResponse<Boolean>(BaseResponseCode.SYSTEM_ERROR);
+            return new ServiceResponse<UserInfoResponse>(BaseResponseCode.SYSTEM_ERROR);
         }
         LOGGER.info("用户登录出参：{}", JSON.toJSONString(response));
         return response;
