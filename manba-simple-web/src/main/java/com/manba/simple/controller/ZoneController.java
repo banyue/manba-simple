@@ -128,4 +128,25 @@ public class ZoneController {
         ServiceResponse<Integer> response = openZoneService.getFollowNum(Long.valueOf(userId));
         return response;
     }
+
+    @ApiOperation("收藏动态")
+    @RequestMapping(value = "/favorite", method = RequestMethod.GET)
+    public ServiceResponse<Long> favorite(UpvoteRequest request) {
+        ServiceResponse<Long> response = openZoneService.favorite(request);
+        return response;
+    }
+
+    @ApiOperation("取消收藏")
+    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    public ServiceResponse<Integer> cancelFavorite(UpvoteRequest request) {
+        ServiceResponse<Integer> response = openZoneService.cancelFavorite(request);
+        return response;
+    }
+
+    @ApiOperation("获取收藏列表")
+    @RequestMapping(value = "/favoriteList", method = RequestMethod.GET)
+    public ServiceResponse<PageBean<ZoneResponse>> favoriteList(ZoneRequest request) {
+        ServiceResponse<PageBean<ZoneResponse>> response = openZoneService.favoriteList(request);
+        return response;
+    }
 }
