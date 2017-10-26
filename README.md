@@ -12,7 +12,8 @@ http://localhost:8080/swagger-ui.html   在接口上添加相关API，可通过�
 
 启动ManBaUploadApplicationLauncher类  可启动文件上传服务，然后使用工具ImgUploadUtil   或者直接调uploadFile
 
-打包：可直接用idea中自带的命令打包，如果部署在linux服务器上，可使用mvn package
+打包：1.如果打线上包，注意要修改manba-simple-web下application.properties文件中的spring.profiles.active为pro，并修改相应端口server.port
+      2.可直接用idea中自带的命令打包，如果部署在linux服务器上，可使用mvn package
 
 运行：输入命令  java -jar manba-simple-web.jar  启动对外接口服务
                 java -jar manba-simple-inner-web.jar  启动后台服务
