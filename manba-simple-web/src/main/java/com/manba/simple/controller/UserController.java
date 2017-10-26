@@ -66,7 +66,7 @@ public class UserController {
         return response;
     }
 
-    @ApiOperation("注册用户")
+    @ApiOperation("用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ServiceResponse<Long> register(UserRequest request) {
         ServiceResponse<Long> response = openUserService.userRegister(request);
