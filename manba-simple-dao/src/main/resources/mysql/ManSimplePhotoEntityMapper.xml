@@ -109,4 +109,14 @@
     WHERE
     user_id = #{userId}
   </select>
+
+  <select id="selectOnePhoto" parameterType="com.manba.simple.domain.entity.ManSimplePhotoEntity" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from man_simple_photo
+    WHERE
+    user_id = #{userId}
+    AND busi_type = #{busiType}
+    AND yn = 0
+  </select>
 </mapper>

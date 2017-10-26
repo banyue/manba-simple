@@ -15,7 +15,7 @@ public class PublishZoneRequest implements Serializable {
     private Long userId;
     private String zoneContent;
     private String zoneImage;
-    private List<MultipartFile> zoneFile;
+    private MultipartFile[] zoneFile;
 
     public String getZoneTitle() {
         return zoneTitle;
@@ -49,11 +49,11 @@ public class PublishZoneRequest implements Serializable {
         this.zoneImage = zoneImage;
     }
 
-    public List<MultipartFile> getZoneFile() {
+    public MultipartFile[] getZoneFile() {
         return zoneFile;
     }
 
-    public void setZoneFile(List<MultipartFile> zoneFile) {
+    public void setZoneFile(MultipartFile[] zoneFile) {
         this.zoneFile = zoneFile;
     }
 }

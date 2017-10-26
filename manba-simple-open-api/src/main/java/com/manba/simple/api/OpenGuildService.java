@@ -57,4 +57,11 @@ public interface OpenGuildService {
      * @return
      */
     ServiceResponse<Integer> quitGuild(GuildUserRequest request);
+
+    /**
+     * 上传头像
+     * @param request
+     * @return
+     */
+    ServiceResponse<String> uploadGuildPhoto(GuildRequest request);
 }

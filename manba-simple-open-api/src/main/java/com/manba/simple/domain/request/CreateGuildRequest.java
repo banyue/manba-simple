@@ -1,5 +1,7 @@
 package com.manba.simple.domain.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,8 @@ public class CreateGuildRequest implements Serializable {
     private String guildPhoto;
 
     private String declaration;
+
+    private MultipartFile photoFile;
 
     public String getGuildName() {
         return guildName;
@@ -65,5 +69,13 @@ public class CreateGuildRequest implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public MultipartFile getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(MultipartFile photoFile) {
+        this.photoFile = photoFile;
     }
 }

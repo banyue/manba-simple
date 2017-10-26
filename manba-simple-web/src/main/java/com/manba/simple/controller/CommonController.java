@@ -1,9 +1,10 @@
 package com.manba.simple.controller;
 
+import com.manba.simple.api.OpenUserService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +18,9 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/comm")
 public class CommonController {
+
+    @Resource
+    OpenUserService openUserService;
 
     @ApiOperation("加载图片")
     @RequestMapping("/download")
@@ -40,18 +44,20 @@ public class CommonController {
         } catch (final IOException e) {
             System.out.println("IOException." + e);
         } finally {
-            if (bis != null)
+            if (bis != null) {
                 try {
                     bis.close();
                 } catch (IOException e) {
                     System.out.println("IOException." + e);
                 }
-            if (bos != null)
+            }
+            if (bos != null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
                     System.out.println("IOException." + e);
                 }
+            }
         }
     }
 }

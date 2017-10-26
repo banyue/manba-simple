@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by lijin on 2017/9/28.
+ * @author by lijin on 2017/9/28.
  */
 @Service
 public class OpenGuildServiceImpl implements OpenGuildService {
@@ -93,7 +93,11 @@ public class OpenGuildServiceImpl implements OpenGuildService {
             entity.setCreateUser(Long.valueOf(request.getUserId()));
             entity.setGuildName(request.getGuildName());
             entity.setYn(YnEnum.YES.getCode());
-            // TODO: 其他数据
+            entity.setGuildPhoto(request.getGuildPhoto());
+            entity.setDeclaration(request.getDeclaration());
+            entity.setMemberNum(request.getMemberNum());
+            entity.setLiveness(request.getLiveness());
+            entity.setCreateTime(new Date());
             Long id = guildService.createGuild(entity);
             response.setResult(id);
         } catch (BaseMsgException msg) {
@@ -128,7 +132,13 @@ public class OpenGuildServiceImpl implements OpenGuildService {
             }
             ManSimpleGuildEntity entity = guildService.selectOneGuild(Long.valueOf(request.getGuildId()));
             GuildResponse guild = new GuildResponse();
-            // TODO: 2017/10/24
+            guild.setCreateUser(entity.getCreateUser());
+            guild.setGuildName(entity.getGuildName());
+            guild.setGuildPhoto(entity.getGuildPhoto());
+            guild.setDeclaration(entity.getDeclaration());
+            guild.setMemberNum(entity.getMemberNum());
+            guild.setLiveness(entity.getLiveness());
+            guild.setGuildId(entity.getId());
             response.setResult(guild);
         } catch (BaseMsgException msg) {
             LOGGER.error("公会详情业务异常！{}", JSON.toJSONString(msg));
@@ -207,6 +217,30 @@ public class OpenGuildServiceImpl implements OpenGuildService {
             return new ServiceResponse<Integer>(BaseResponseCode.SYSTEM_ERROR);
         }
         LOGGER.info("退出公会出参：{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public ServiceResponse<String> uploadGuildPhoto(GuildRequest request) {
+        //保存到用户表，同时保存到相册表
+        LOGGER.info("上传公会头像入参：{}", JSON.toJSONString(request));
+        ServiceResponse<String> response = new ServiceResponse<String>();
+        try {
+            ManSimpleGuildEntity entity = new ManSimpleGuildEntity();
+            entity.setId(Long.valueOf(request.getGuildId()));
+            entity.setGuildPhoto(request.getPhotoPath());
+            entity.setCreateUser(Long.valueOf(request.getUserId()));
+            entity.setUpdateTime(new Date());
+            guildService.uploadGuildPhotoAndSaveAlbum(entity);
+            response.setResult(request.getPhotoPath());
+        } catch (BaseMsgException msg) {
+            LOGGER.error("上传公会头像业务异常！{}", JSON.toJSONString(msg));
+            return new ServiceResponse<String>(msg.getCode(), msg.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("上传公会头像异常！{}", e);
+            return new ServiceResponse<String>(BaseResponseCode.SYSTEM_ERROR);
+        }
+        LOGGER.info("上传公会头像出参：{}", JSON.toJSONString(response));
         return response;
     }
 }

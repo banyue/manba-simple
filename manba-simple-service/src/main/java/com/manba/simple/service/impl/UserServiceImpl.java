@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
         entities.forEach(entity -> {
             result.add(entity.getPhotoPath());
         });
+        for(ManSimplePhotoEntity entity : entities) {
+            result.add(entity.getPhotoPath());
+        }
         return result;
     }
 
@@ -72,7 +75,12 @@ public class UserServiceImpl implements UserService {
             photoEntity.setCreateTime(new Date());
             photoEntity.setYn(YnEnum.YES.getCode());
             photoEntity.setBusiType(BusiTypeEnum.USER_PHOTO.getCode());
-            manSimplePhotoEntityMapper.insertSelective(photoEntity);
+            ManSimplePhotoEntity one = manSimplePhotoEntityMapper.selectOnePhoto(photoEntity);
+            if(null == one) {
+                manSimplePhotoEntityMapper.insertSelective(photoEntity);
+            } else {
+                manSimplePhotoEntityMapper.updateByPrimaryKeySelective(photoEntity);
+            }
         }
         return r;
     }

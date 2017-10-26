@@ -51,7 +51,7 @@ public class ZoneController {
     public ServiceResponse<Long> publishZone(PublishZoneRequest request) {
         //上传图片
         StringBuffer sb = new StringBuffer();
-        if(null != request.getZoneFile() && !request.getZoneFile().isEmpty()) {
+        if(null != request.getZoneFile() && request.getZoneFile().length > 0) {
             String path;
             for(MultipartFile file : request.getZoneFile()) {
                 path = ImgUploadUtil.uploadImg(file);

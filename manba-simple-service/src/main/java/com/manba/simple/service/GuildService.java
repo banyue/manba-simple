@@ -55,4 +55,11 @@ public interface GuildService {
      * @return
      */
     List<ManSimpleUserEntity> queryGuildMember(GuildUserEntityRequest request);
+
+    /**
+     * 更新公会头像
+     * @param entity
+     * @return
+     */
+    Integer uploadGuildPhotoAndSaveAlbum(ManSimpleGuildEntity entity);
 }

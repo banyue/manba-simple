@@ -18,4 +18,6 @@ public interface ManSimplePhotoEntityMapper {
     int updateByPrimaryKey(ManSimplePhotoEntity record);
 
     List<ManSimplePhotoEntity> queryPhotoList(Long userId);
+
+    ManSimplePhotoEntity selectOnePhoto(ManSimplePhotoEntity entity);
 }

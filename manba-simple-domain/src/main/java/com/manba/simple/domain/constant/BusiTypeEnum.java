@@ -10,7 +10,8 @@ import java.util.Map;
 public enum BusiTypeEnum {
 
     USER_PHOTO(1, "用户头像"),
-    ZONE(2, "动态图片");
+    ZONE(2, "动态图片"),
+    GUILD(3, "公会图片");
 
     BusiTypeEnum(Integer code, String name) {
         this.code = code;

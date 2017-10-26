@@ -7,6 +7,8 @@ package com.manba.simple.domain.request;
 public class GuildRequest {
 
     private String guildId;  //公会id
+    private String userId;   //必传
+    private String photoPath;  //头像路径
 
     private Integer pageSize;
     private Integer pageNo;
@@ -33,5 +35,21 @@ public class GuildRequest {
 
     public void setGuildId(String guildId) {
         this.guildId = guildId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

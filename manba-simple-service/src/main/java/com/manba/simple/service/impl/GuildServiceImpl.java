@@ -1,16 +1,21 @@
 package com.manba.simple.service.impl;
 
+import com.manba.simple.common.util.StringUtil;
+import com.manba.simple.domain.constant.BusiTypeEnum;
 import com.manba.simple.domain.constant.YnEnum;
 import com.manba.simple.domain.entity.ManSimpleGuildEntity;
 import com.manba.simple.domain.entity.ManSimpleGuildUserEntity;
+import com.manba.simple.domain.entity.ManSimplePhotoEntity;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.inside.GuildEntityRequest;
 import com.manba.simple.domain.inside.GuildUserEntityRequest;
 import com.manba.simple.mapper.ManSimpleGuildEntityMapper;
 import com.manba.simple.mapper.ManSimpleGuildUserEntityMapper;
+import com.manba.simple.mapper.ManSimplePhotoEntityMapper;
 import com.manba.simple.mapper.ManSimpleUserEntityMapper;
 import com.manba.simple.service.GuildService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -29,6 +34,8 @@ public class GuildServiceImpl implements GuildService {
     ManSimpleGuildUserEntityMapper manSimpleGuildUserEntityMapper;
     @Resource
     ManSimpleUserEntityMapper manSimpleUserEntityMapper;
+    @Resource
+    ManSimplePhotoEntityMapper manSimplePhotoEntityMapper;
 
     @Override
     public List<ManSimpleGuildEntity> selectGuildList(GuildEntityRequest request) {
@@ -36,8 +43,19 @@ public class GuildServiceImpl implements GuildService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long createGuild(ManSimpleGuildEntity entity) {
         manSimpleGuildEntityMapper.insertSelective(entity);
+        //保存相册
+        if(StringUtil.isEmpty(entity.getGuildPhoto())) {
+            ManSimplePhotoEntity photoEntity = new ManSimplePhotoEntity();
+            photoEntity.setCreateTime(new Date());
+            photoEntity.setUserId(entity.getCreateUser());
+            photoEntity.setPhotoPath(entity.getGuildPhoto());
+            photoEntity.setYn(YnEnum.YES.getCode());
+            photoEntity.setBusiType(BusiTypeEnum.GUILD.getCode());
+            manSimplePhotoEntityMapper.insertSelective(photoEntity);
+        }
         return entity.getId();
     }
 
@@ -75,5 +93,27 @@ public class GuildServiceImpl implements GuildService {
             result.add(user);
         }
         return result;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer uploadGuildPhotoAndSaveAlbum(ManSimpleGuildEntity entity) {
+        Integer r = manSimpleGuildEntityMapper.updateByPrimaryKeySelective(entity);
+        //保存相册表
+        if(r > 0) {
+            ManSimplePhotoEntity photoEntity = new ManSimplePhotoEntity();
+            photoEntity.setUserId(entity.getCreateUser());
+            photoEntity.setPhotoPath(entity.getGuildPhoto());
+            photoEntity.setCreateTime(new Date());
+            photoEntity.setYn(YnEnum.YES.getCode());
+            photoEntity.setBusiType(BusiTypeEnum.GUILD.getCode());
+            ManSimplePhotoEntity one = manSimplePhotoEntityMapper.selectOnePhoto(photoEntity);
+            if (null == one) {
+                manSimplePhotoEntityMapper.insertSelective(photoEntity);
+            } else {
+                manSimplePhotoEntityMapper.updateByPrimaryKeySelective(photoEntity);
+            }
+        }
+        return r;
     }
 }
