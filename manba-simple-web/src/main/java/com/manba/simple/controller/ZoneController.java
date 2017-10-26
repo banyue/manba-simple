@@ -10,6 +10,7 @@ import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.domain.response.ZoneResponse;
 import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/zone")
 public class ZoneController {
+
+    @Value("${image.upload.post.url}")
+    private String IMAGE_UPLOAD_URL;
 
     @Resource
     OpenZoneService openZoneService;
@@ -54,7 +58,7 @@ public class ZoneController {
         if(null != request.getZoneFile() && request.getZoneFile().length > 0) {
             String path;
             for(MultipartFile file : request.getZoneFile()) {
-                path = ImgUploadUtil.uploadImg(file);
+                path = ImgUploadUtil.uploadImg(file, IMAGE_UPLOAD_URL);
                 if(!StringUtil.isEmpty(path)) {
                     sb.append(path).append(";");
                 }

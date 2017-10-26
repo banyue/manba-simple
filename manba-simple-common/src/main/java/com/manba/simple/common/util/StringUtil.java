@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by lijin on 2017/10/3.
+ * @author by lijin on 2017/10/3.
  */
 public class StringUtil {
 
@@ -22,11 +22,11 @@ public class StringUtil {
         if(param == null){
             return true;
         } else if(param instanceof String){
-            return "".equals((String)param);
+            return "".equals(param);
         } else if(param instanceof List){
             return ((List)param).size() == 0;
         } else if(param instanceof Long){
-            return (Long)param <= 0l;
+            return (Long)param <= 0L;
         }
         return false;
     }

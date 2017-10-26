@@ -12,6 +12,7 @@ import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,9 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/guild")
 public class GuildController {
+
+    @Value("${image.upload.post.url}")
+    private String IMAGE_UPLOAD_URL;
 
     @Resource
     OpenGuildService openGuildService;
@@ -50,7 +54,7 @@ public class GuildController {
         //保存头像
         String path;
         if(null != request.getPhotoFile()) {
-            path = ImgUploadUtil.uploadImg(request.getPhotoFile());
+            path = ImgUploadUtil.uploadImg(request.getPhotoFile(), IMAGE_UPLOAD_URL);
             if (StringUtil.isEmpty(path)) {
                 request.setGuildPhoto(path);
             } else {
@@ -88,7 +92,7 @@ public class GuildController {
     public ServiceResponse<String> uploadPhoto(GuildRequest request, @RequestParam("file") MultipartFile file) {
         ServiceResponse<String> response = new ServiceResponse<String>();
         try {
-            String path = ImgUploadUtil.uploadImg(file);
+            String path = ImgUploadUtil.uploadImg(file, IMAGE_UPLOAD_URL);
             if(StringUtil.isEmpty(path)) {
                 request.setPhotoPath(path);
                 response = openGuildService.uploadGuildPhoto(request);

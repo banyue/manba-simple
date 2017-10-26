@@ -14,6 +14,8 @@ http://localhost:8080/swagger-ui.html   在接口上添加相关API，可通过�
 
 打包：1.如果打线上包，注意要修改manba-simple-web下application.properties文件中的spring.profiles.active为pro，并修改相应端口server.port
       2.可直接用idea中自带的命令打包，如果部署在linux服务器上，可使用mvn package
+      3.文件上传服务修改文件上传保存根路径，在manba-simple-web下的配置文件中
+      4.修改manba-simple-web下文件上传请求地址，域名
 
 运行：输入命令  java -jar manba-simple-web.jar  启动对外接口服务
                 java -jar manba-simple-inner-web.jar  启动后台服务

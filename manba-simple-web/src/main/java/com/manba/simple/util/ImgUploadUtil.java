@@ -21,13 +21,13 @@ public class ImgUploadUtil {
      * @param imgFile
      * @return 返回图片地址
      */
-    public static String uploadImg(MultipartFile imgFile) {
+    public static String uploadImg(MultipartFile imgFile, String uploadPath) {
         if(imgFile == null || imgFile.getSize() == 0){
             return null;
         }
         String res = null;
         try {
-            String uploadResponse = ImageUpload.uploadFile(imgFile.getBytes(), imgFile.getOriginalFilename());
+            String uploadResponse = ImageUpload.uploadFile(imgFile.getBytes(), imgFile.getOriginalFilename(), uploadPath);
             LOGGER.info("返回结果：{}", uploadResponse);
             JSONObject jsonObject = JSON.parseArray("[" + uploadResponse + "]").getJSONObject(0);
             if(!"1".equals(jsonObject.get("id"))){//异常

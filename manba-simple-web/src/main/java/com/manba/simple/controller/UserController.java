@@ -10,6 +10,7 @@ import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,9 @@ import javax.annotation.Resource;
 @RequestMapping
 @Api("用户相关API")
 public class UserController {
+
+    @Value("${image.upload.post.url}")
+    private String IMAGE_UPLOAD_URL;
 
     @Resource
     private OpenUserService openUserService;
@@ -49,7 +53,7 @@ public class UserController {
         ServiceResponse<String> response = new ServiceResponse<String>();
         request.setUserId(Long.valueOf(id));
         try {
-            String path = ImgUploadUtil.uploadImg(file);
+            String path = ImgUploadUtil.uploadImg(file, IMAGE_UPLOAD_URL);
             if(StringUtil.isEmpty(path)) {
                 request.setPhotoUrl(path);
                 response = openUserService.uploadPhoto(request);
