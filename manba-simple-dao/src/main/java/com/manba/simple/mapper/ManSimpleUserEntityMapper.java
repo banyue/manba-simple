@@ -1,6 +1,9 @@
 package com.manba.simple.mapper;
 
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
+import com.manba.simple.domain.inside.UserEntityRequest;
+
+import java.util.List;
 
 public interface ManSimpleUserEntityMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +17,6 @@ public interface ManSimpleUserEntityMapper {
     int updateByPrimaryKeySelective(ManSimpleUserEntity record);
 
     int updateByPrimaryKey(ManSimpleUserEntity record);
+
+    List<ManSimpleUserEntity> queryUserListForPage(UserEntityRequest request);
 }

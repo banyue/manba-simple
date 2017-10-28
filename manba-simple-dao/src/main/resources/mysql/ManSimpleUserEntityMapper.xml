@@ -136,4 +136,32 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryUserListForPage" parameterType="com.manba.simple.domain.inside.UserEntityRequest" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from man_simple_user
+    <where>
+      <include refid="where-all-condition" />
+    </where>
+  </select>
+
+  <sql id="where-all-condition">
+    1=1
+    <if test="id != null">
+      and id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="phone != null and phone != ''">
+      and phone = #{phone,jdbcType=VARCHAR}
+    </if>
+    <if test="nickName != null and nickName != ''">
+      and nick_name = #{nickName,jdbcType=VARCHAR}
+    </if>
+    <if test="sex != null">
+      and sex = #{sex,jdbcType=INTEGER}
+    </if>
+    <if test="interesting != null and interesting != ''">
+      and interesting = #{interesting,jdbcType=VARCHAR}
+    </if>
+  </sql>
 </mapper>

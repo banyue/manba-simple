@@ -1,4 +1,4 @@
-package com.manba.simple.service.impl;
+package com.manba.simple.service.open.impl;
 
 import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.constant.BusiTypeEnum;
@@ -13,7 +13,7 @@ import com.manba.simple.mapper.ManSimpleGuildEntityMapper;
 import com.manba.simple.mapper.ManSimpleGuildUserEntityMapper;
 import com.manba.simple.mapper.ManSimplePhotoEntityMapper;
 import com.manba.simple.mapper.ManSimpleUserEntityMapper;
-import com.manba.simple.service.GuildService;
+import com.manba.simple.service.open.GuildService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

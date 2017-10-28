@@ -25,6 +25,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.manba.simple</groupId>
+            <artifactId>manba-simple-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>

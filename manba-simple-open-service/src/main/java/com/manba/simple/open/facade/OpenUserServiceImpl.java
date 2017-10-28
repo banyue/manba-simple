@@ -1,17 +1,17 @@
-package com.manba.simple.facade;
+package com.manba.simple.open.facade;
 
 import com.alibaba.fastjson.JSON;
 import com.manba.simple.api.OpenUserService;
 import com.manba.simple.common.domain.BaseResponseCode;
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.common.exception.BaseMsgException;
 import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
 import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.request.UserRequest;
-import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
-import com.manba.simple.service.UserService;
+import com.manba.simple.service.open.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

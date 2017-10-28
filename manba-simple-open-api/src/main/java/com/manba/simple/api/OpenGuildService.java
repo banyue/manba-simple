@@ -1,14 +1,12 @@
 package com.manba.simple.api;
 
-import com.manba.simple.domain.page.PageBean;
+import com.manba.simple.common.domain.PageBean;
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.domain.request.CreateGuildRequest;
 import com.manba.simple.domain.request.GuildRequest;
 import com.manba.simple.domain.request.GuildUserRequest;
 import com.manba.simple.domain.response.GuildResponse;
-import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
-
-import java.util.List;
 
 /**
  * 公会对外服务接口

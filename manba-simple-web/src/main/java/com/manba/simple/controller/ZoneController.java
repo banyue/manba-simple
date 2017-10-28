@@ -1,11 +1,11 @@
 package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenZoneService;
+import com.manba.simple.common.domain.PageBean;
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.common.util.StringUtil;
-import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.*;
 import com.manba.simple.domain.response.CommentInfoResponse;
-import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.domain.response.ZoneResponse;
 import com.manba.simple.util.ImgUploadUtil;

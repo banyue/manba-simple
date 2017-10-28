@@ -1,9 +1,9 @@
 package com.manba.simple.api;
 
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.domain.request.UpdatePasswordRequest;
 import com.manba.simple.domain.request.UserLoginRequest;
 import com.manba.simple.domain.request.UserRequest;
-import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 
 /**

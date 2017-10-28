@@ -1,9 +1,9 @@
-package com.manba.simple.domain.inside;
+package com.manba.simple.inner.domain.request;
 
 /**
- * Created by lijin on 2017/9/29.
+ * Created by lijin on 2017/10/28.
  */
-public class UserEntityRequest {
+public class UserInnerRequest {
 
     private String userId; //用户id
     private String phone;

@@ -2,13 +2,13 @@ package com.manba.simple.controller;
 
 import com.manba.simple.api.OpenGuildService;
 import com.manba.simple.common.domain.BaseResponseCode;
+import com.manba.simple.common.domain.PageBean;
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.common.util.StringUtil;
-import com.manba.simple.domain.page.PageBean;
 import com.manba.simple.domain.request.CreateGuildRequest;
 import com.manba.simple.domain.request.GuildRequest;
 import com.manba.simple.domain.request.GuildUserRequest;
 import com.manba.simple.domain.response.GuildResponse;
-import com.manba.simple.domain.response.ServiceResponse;
 import com.manba.simple.domain.response.UserInfoResponse;
 import com.manba.simple.util.ImgUploadUtil;
 import io.swagger.annotations.ApiOperation;

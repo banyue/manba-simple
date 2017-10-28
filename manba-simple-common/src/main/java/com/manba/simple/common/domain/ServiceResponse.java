@@ -1,7 +1,4 @@
-package com.manba.simple.domain.response;
-
-import com.manba.simple.common.domain.BaseResponseCode;
-import com.manba.simple.common.domain.ResponseCode;
+package com.manba.simple.common.domain;
 
 import java.io.Serializable;
 

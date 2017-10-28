@@ -1,4 +1,4 @@
-package com.manba.simple.domain.page;
+package com.manba.simple.common.domain;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -89,6 +89,13 @@
                 <version>${mybatis.spring.boot}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+                <version>${spring.boot.version}</version>
+                <!--<scope>provided</scope>-->
+            </dependency>
+
             <!-- 引入spring boot自带的pagehelper插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>

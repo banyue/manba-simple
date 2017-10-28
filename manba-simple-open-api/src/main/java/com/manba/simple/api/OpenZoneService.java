@@ -1,6 +1,7 @@
 package com.manba.simple.api;
 
-import com.manba.simple.domain.page.PageBean;
+import com.manba.simple.common.domain.PageBean;
+import com.manba.simple.common.domain.ServiceResponse;
 import com.manba.simple.domain.request.*;
 import com.manba.simple.domain.response.*;
 

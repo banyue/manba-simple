@@ -11,5 +11,22 @@
 
     <artifactId>manba-simple-inner-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.manba.simple</groupId>
+            <artifactId>manba-simple-inner-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.manba.simple</groupId>
+            <artifactId>manba-simple-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 </project>

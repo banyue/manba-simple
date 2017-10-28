@@ -1,4 +1,4 @@
-package com.manba.simple.service.impl;
+package com.manba.simple.service.open.impl;
 
 import com.manba.simple.common.util.StringUtil;
 import com.manba.simple.domain.constant.BusiTypeEnum;
@@ -8,7 +8,7 @@ import com.manba.simple.domain.inside.CommentEntityRequest;
 import com.manba.simple.domain.inside.FavoriteEntityRequest;
 import com.manba.simple.domain.inside.ZoneEntityRequest;
 import com.manba.simple.mapper.*;
-import com.manba.simple.service.ZoneService;
+import com.manba.simple.service.open.ZoneService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

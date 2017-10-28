@@ -1,4 +1,4 @@
-package com.manba.simple.service;
+package com.manba.simple.service.open;
 
 import com.manba.simple.domain.entity.ManSimpleGuildEntity;
 import com.manba.simple.domain.entity.ManSimpleUserEntity;
