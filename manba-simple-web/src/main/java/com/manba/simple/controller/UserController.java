@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * Created by lijin on 2017/9/27.
  */
 @RestController
-@RequestMapping
+@RequestMapping("/user")
 @Api("用户相关API")
 public class UserController {
 
@@ -32,26 +32,27 @@ public class UserController {
     @Resource
     private OpenUserService openUserService;
 
-    @RequestMapping("/")
-    String home() {
+    @ApiOperation("测试请求")
+    @RequestMapping(value = "/hello", method = {RequestMethod.GET, RequestMethod.POST})
+    public String hello() {
         return "Hello World!";
     }
 
     @ApiOperation("获取用户信息")
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ServiceResponse<UserInfoResponse> getUser(@PathVariable String id, Model model) {
+    @RequestMapping(value = "/detail/{userId}", method = RequestMethod.POST)
+    public ServiceResponse<UserInfoResponse> getUser(@PathVariable String userId, Model model) {
         UserLoginRequest request = new UserLoginRequest();
-        request.setUserId(id);
+        request.setUserId(userId);
         ServiceResponse<UserInfoResponse> response = openUserService.queryUserInfo(request);
         return response;
     }
 
-    @ApiOperation("上传用户头像")
-    @RequestMapping(value = "/uploadPhoto/{id}", method = RequestMethod.POST)
-    public ServiceResponse<String> uploadPhoto(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+    @ApiOperation("上传用户头像-注册之后上传")
+    @RequestMapping(value = "/uploadPhoto/{userId}", method = RequestMethod.POST)
+    public ServiceResponse<String> uploadPhoto(@PathVariable String userId, @RequestParam("file") MultipartFile file) {
         UserRequest request = new UserRequest();
         ServiceResponse<String> response = new ServiceResponse<String>();
-        request.setUserId(Long.valueOf(id));
+        request.setUserId(Long.valueOf(userId));
         try {
             String path = ImgUploadUtil.uploadImg(file, IMAGE_UPLOAD_URL);
             if(StringUtil.isEmpty(path)) {

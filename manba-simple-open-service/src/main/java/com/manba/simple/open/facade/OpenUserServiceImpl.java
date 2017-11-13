@@ -39,22 +39,22 @@ public class OpenUserServiceImpl implements OpenUserService {
         ServiceResponse<UserInfoResponse> response = new ServiceResponse<UserInfoResponse>();
         try {
             ManSimpleUserEntity entity = new ManSimpleUserEntity();
-            entity.setPhone(request.getPhone());
-            entity.setPassword(request.getPassword());
+            entity.setPhone(request.getUsername());
+            //entity.setPassword(request.getPassword());
             ManSimpleUserEntity one = userService.getOneUserInfo(entity);
             if(null == one) {
                 //用户不存在
                 return new ServiceResponse<UserInfoResponse>(BaseResponseCode.USER_NOT_EXIST);
             }
-            if(one.getPassword().equals(request.getPassword())) {
+            if(!one.getPassword().equals(request.getPassword())) {
                 //密码错误
                 return new ServiceResponse<UserInfoResponse>(BaseResponseCode.PASSWORD_ERROR);
             }
             UserInfoResponse userInfo = new UserInfoResponse();
-            userInfo.setUserId(entity.getId());
-            userInfo.setPhotoUrl(entity.getPhotoUrl());
-            userInfo.setNickName(entity.getNickName());
-            userInfo.setPhone(entity.getPhone());
+            userInfo.setUserId(one.getId());
+            userInfo.setPhotoUrl(one.getPhotoUrl());
+            userInfo.setNickName(one.getNickName());
+            userInfo.setPhone(one.getPhone());
             response.isSuccess();
             response.setResult(userInfo);
             response.setCode(BaseResponseCode.SUCCESS.getCode());
@@ -140,6 +140,10 @@ public class OpenUserServiceImpl implements OpenUserService {
         LOGGER.info("上传头像入参：{}", JSON.toJSONString(request));
         ServiceResponse<String> response = new ServiceResponse<String>();
         try {
+            //参数校验
+            if (StringUtil.isEmpty(request.getUserId())) {
+                return new ServiceResponse<String>(BaseResponseCode.PARAM_ERROR);
+            }
             ManSimpleUserEntity entity = new ManSimpleUserEntity();
             entity.setId(Long.valueOf(request.getUserId()));
             entity.setPhotoUrl(request.getPhotoUrl());
@@ -164,7 +168,7 @@ public class OpenUserServiceImpl implements OpenUserService {
         try {
             ManSimpleUserEntity entity = new ManSimpleUserEntity();
             entity.setId(Long.valueOf(request.getUserId()));
-            ManSimpleUserEntity result = userService.getOneUserInfo(entity);
+            ManSimpleUserEntity result = userService.getUserInfoById(entity);
             UserInfoResponse userInfoResponse = new UserInfoResponse();
             userInfoResponse.setNickName(result.getNickName());
             userInfoResponse.setPhone(result.getPhone());
@@ -177,4 +181,10 @@ public class OpenUserServiceImpl implements OpenUserService {
         LOGGER.info("查询用户信息出参：{}", JSON.toJSONString(response));
         return response;
     }
+
+    @Override
+    public ServiceResponse<UserInfoResponse> queryUserInfoByPhone(String phone) {
+        return null;
+    }
+
 }

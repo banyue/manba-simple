@@ -10,6 +10,7 @@ public class UserInfoResponse {
     private String phone;
     private String nickName;
     private String photoUrl;
+    private String password;
 
     public Long getUserId() {
         return userId;
@@ -41,5 +42,13 @@ public class UserInfoResponse {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

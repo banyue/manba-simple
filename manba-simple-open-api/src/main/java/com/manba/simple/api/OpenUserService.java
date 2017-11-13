@@ -48,5 +48,10 @@ public interface OpenUserService {
      */
     ServiceResponse<UserInfoResponse> queryUserInfo(UserLoginRequest request);
 
-
+    /**
+     * 根据手机号查询用户信息
+     * @param phone
+     * @return
+     */
+    ServiceResponse<UserInfoResponse> queryUserInfoByPhone(String phone);
 }

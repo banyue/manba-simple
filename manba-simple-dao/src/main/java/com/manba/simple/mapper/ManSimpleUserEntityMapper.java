@@ -19,4 +19,6 @@ public interface ManSimpleUserEntityMapper {
     int updateByPrimaryKey(ManSimpleUserEntity record);
 
     List<ManSimpleUserEntity> queryUserListForPage(UserEntityRequest request);
+
+    ManSimpleUserEntity queryOneUserInfo(ManSimpleUserEntity entity);
 }

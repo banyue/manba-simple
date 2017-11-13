@@ -9,7 +9,19 @@ import java.util.List;
  */
 public interface UserService {
 
+    /**
+     * 根据查询条件获取用户信息
+     * @param entity
+     * @return
+     */
     ManSimpleUserEntity getOneUserInfo(ManSimpleUserEntity entity);
+
+    /**
+     * 根据用户id获取用户信息
+     * @param entity
+     * @return
+     */
+    ManSimpleUserEntity getUserInfoById(ManSimpleUserEntity entity);
 
     /**
      * 相册列表

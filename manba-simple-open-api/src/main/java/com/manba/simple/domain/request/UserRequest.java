@@ -1,11 +1,14 @@
 package com.manba.simple.domain.request;
 
+import io.swagger.annotations.ApiParam;
+
 /**
  * 用户注册请求
  * Created by lijin on 2017/9/26.
  */
 public class UserRequest {
 
+    @ApiParam(hidden = true)
     private Long userId;
 
     private String phone;
@@ -18,6 +21,7 @@ public class UserRequest {
 
     private String interesting;
 
+    @ApiParam(hidden = true)
     private String photoUrl;
 
     public String getPhone() {

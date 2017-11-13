@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ManSimpleUserEntity getOneUserInfo(ManSimpleUserEntity entity) {
+        return manSimpleUserEntityMapper.queryOneUserInfo(entity);
+    }
+
+    @Override
+    public ManSimpleUserEntity getUserInfoById(ManSimpleUserEntity entity) {
         return manSimpleUserEntityMapper.selectByPrimaryKey(entity.getId());
     }
 

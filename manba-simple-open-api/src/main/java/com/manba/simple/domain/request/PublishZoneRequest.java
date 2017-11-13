@@ -1,5 +1,6 @@
 package com.manba.simple.domain.request;
 
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class PublishZoneRequest implements Serializable {
     private String zoneTitle;
     private Long userId;
     private String zoneContent;
+    @ApiParam(hidden = true)
     private String zoneImage;
     private MultipartFile[] zoneFile;
 
