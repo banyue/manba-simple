@@ -22,11 +22,3 @@ http://localhost:8080/swagger-ui.html   在接口上添加相关API，可通过�
                 java -jar manba-simple-upload.jar  启动文件上传服务
 
 windows下杀死某个进程：taskkill /f /t /im java.exe
-
-windows下安装vue
-安装node.js 4.0+
-全局安装webpack：npm install -g webpack@1.13.1 webpack-dev-server@1.13.1
-全局安装gulp: npm install -g gulp
-安装依赖：cd 项目当前需要安装vue的目录，比如此项目的WEB-VUE  然后执行 npm install
-npm run dev 启动vue
-gulp 编译修改文档
