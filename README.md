@@ -30,5 +30,3 @@ windows下安装vue
 安装依赖：cd 项目当前需要安装vue的目录，比如此项目的WEB-VUE  然后执行 npm install
 npm run dev 启动vue
 gulp 编译修改文档
-
-安装js压缩  npm i -D uglifyjs-webpack-plugin@0.4.6
